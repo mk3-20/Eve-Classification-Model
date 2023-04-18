@@ -12,41 +12,38 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.setWindowModality(QtCore.Qt.WindowModality.NonModal)
         MainWindow.resize(800, 533)
-        MainWindow.setStyleSheet("background-color: rgb(255, 255, 255);")
+        MainWindow.setStyleSheet("border-radius:10px;\n"
+"background-color: qlineargradient(spread:pad, x1:0, y1:0.046, x2:1, y2:0.972, stop:0 rgba(229, 253, 255, 255), stop:0.994318 rgba(131, 250, 255, 255));\n"
+"\n"
+"\n"
+"\n"
+"")
+        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.centralwidget)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.widget_input = QtWidgets.QWidget(parent=self.centralwidget)
-        self.widget_input.setStyleSheet("\n"
-"QWidget#widget_input{\n"
-"border-radius: 10px;\n"
-"border:1px solid purple;\n"
-"};\n"
-"background-color: rgb(220, 250, 255);\n"
-"")
-        self.widget_input.setObjectName("widget_input")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.widget_input)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.gridLayout_cat_2 = QtWidgets.QGridLayout()
-        self.gridLayout_cat_2.setObjectName("gridLayout_cat_2")
-        self.verticalLayout_4.addLayout(self.gridLayout_cat_2)
-        self.horizontalLayout.addWidget(self.widget_input)
+        self.label_inputImages = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_inputImages.setStyleSheet("background-color: rgb(170, 255, 255);\n"
+"background-color: rgb(85, 255, 255);\n"
+"background-color: rgb(0, 255, 255);")
+        self.label_inputImages.setText("")
+        self.label_inputImages.setObjectName("label_inputImages")
+        self.horizontalLayout.addWidget(self.label_inputImages)
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.widget_cat = QtWidgets.QWidget(parent=self.centralwidget)
         self.widget_cat.setMinimumSize(QtCore.QSize(249, 177))
-        self.widget_cat.setStyleSheet("QWidget#widget_cat{\n"
-"border-radius: 10px;\n"
-"border:1px solid purple;\n"
-"};\n"
+        self.widget_cat.setStyleSheet("\n"
 "background-color: rgb(236, 236, 236);\n"
+"\n"
 "")
         self.widget_cat.setObjectName("widget_cat")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget_cat)
@@ -56,13 +53,29 @@ class Ui_MainWindow(object):
         font.setFamily("Rupee Foradian")
         font.setPointSize(16)
         self.label_cat.setFont(font)
+        self.label_cat.setStyleSheet("background-color: rgba(255, 255, 255,0);\n"
+"border:0px;")
         self.label_cat.setObjectName("label_cat")
         self.verticalLayout.addWidget(self.label_cat)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
         self.verticalLayout.addItem(spacerItem)
-        self.gridLayout_cat = QtWidgets.QGridLayout()
-        self.gridLayout_cat.setObjectName("gridLayout_cat")
-        self.verticalLayout.addLayout(self.gridLayout_cat)
+        self.scrollArea_cat = QtWidgets.QScrollArea(parent=self.widget_cat)
+        self.scrollArea_cat.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.scrollArea_cat.setWidgetResizable(True)
+        self.scrollArea_cat.setObjectName("scrollArea_cat")
+        self.scrollAreaWidgetContents_cat = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_cat.setGeometry(QtCore.QRect(0, 0, 252, 149))
+        self.scrollAreaWidgetContents_cat.setObjectName("scrollAreaWidgetContents_cat")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_cat)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.verticalLayout_cat = QtWidgets.QVBoxLayout()
+        self.verticalLayout_cat.setObjectName("verticalLayout_cat")
+        self.horizontalLayout_row1cat = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_row1cat.setObjectName("horizontalLayout_row1cat")
+        self.verticalLayout_cat.addLayout(self.horizontalLayout_row1cat)
+        self.verticalLayout_7.addLayout(self.verticalLayout_cat)
+        self.scrollArea_cat.setWidget(self.scrollAreaWidgetContents_cat)
+        self.verticalLayout.addWidget(self.scrollArea_cat)
         self.verticalLayout.setStretch(1, 1)
         self.verticalLayout.setStretch(2, 100)
         self.verticalLayout_2.addWidget(self.widget_cat)
@@ -75,21 +88,31 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.pushButton_importPics.setFont(font)
         self.pushButton_importPics.setStyleSheet("QPushButton {\n"
-"color: white;\n"
-"background-color: rgb(44, 128, 255);\n"
-"border: 1px solid;\n"
-"border-radius: 8px;\n"
-"    border-color: rgb(51, 61, 255);\n"
+"    background-color: rgb(250, 198, 255);\n"
 "}\n"
 "\n"
 "QPushButton:pressed{\n"
+"    background-color: rgb(253, 238, 255);\n"
+"    font: 12pt \"Rupee Foradian\";\n"
 "}")
         self.pushButton_importPics.setObjectName("pushButton_importPics")
         self.gridLayout.addWidget(self.pushButton_importPics, 0, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.gridLayout.addItem(spacerItem1, 0, 1, 1, 1)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
-        self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
+        self.pushButton_classify = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_classify.setMinimumSize(QtCore.QSize(131, 41))
+        font = QtGui.QFont()
+        font.setFamily("Rupee Foradian")
+        font.setPointSize(13)
+        self.pushButton_classify.setFont(font)
+        self.pushButton_classify.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(250, 198, 255);\n"
+"}\n"
+"\n"
+"QPushButton:pressed{\n"
+"    background-color: rgb(253, 238, 255);\n"
+"    font: 12pt \"Rupee Foradian\";\n"
+"}")
+        self.pushButton_classify.setObjectName("pushButton_classify")
+        self.gridLayout.addWidget(self.pushButton_classify, 0, 1, 1, 1)
         self.pushButton_askEve = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_askEve.setMinimumSize(QtCore.QSize(131, 41))
         font = QtGui.QFont()
@@ -97,25 +120,23 @@ class Ui_MainWindow(object):
         font.setPointSize(13)
         self.pushButton_askEve.setFont(font)
         self.pushButton_askEve.setStyleSheet("QPushButton {\n"
-"color: white;\n"
-"background-color: rgb(44, 128, 255);\n"
-"border:1px solid;\n"
-"    border-color: rgb(51, 61, 255);\n"
-"border-radius: 8px;\n"
+"\n"
+"    background-color: qlineargradient(spread:pad, x1:0.0677273, y1:0.131, x2:0.909, y2:0.921, stop:0.0511364 rgba(255, 195, 252, 255), stop:1 rgba(255, 168, 223, 255));\n"
 "}\n"
 "\n"
 "QPushButton:pressed{\n"
+"\n"
+"    background-color: qlineargradient(spread:pad, x1:0.868864, y1:0.87, x2:0.124909, y2:0.149, stop:0.0511364 rgba(255, 184, 251, 255), stop:1 rgba(255, 168, 223, 255));\n"
 "}")
         self.pushButton_askEve.setObjectName("pushButton_askEve")
-        self.gridLayout.addWidget(self.pushButton_askEve, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_askEve, 2, 0, 1, 2)
         self.verticalLayout_2.addLayout(self.gridLayout)
         self.widget_dog = QtWidgets.QWidget(parent=self.centralwidget)
         self.widget_dog.setMinimumSize(QtCore.QSize(249, 176))
-        self.widget_dog.setStyleSheet("QWidget#widget_dog{\n"
-"border-radius: 10px;\n"
-"border:1px solid purple;\n"
-"};\n"
-"background-color: rgb(236, 236, 236);")
+        self.widget_dog.setStyleSheet("\n"
+"background-color: rgb(236, 236, 236);\n"
+"\n"
+"")
         self.widget_dog.setObjectName("widget_dog")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_dog)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -124,19 +145,36 @@ class Ui_MainWindow(object):
         font.setFamily("Rupee Foradian")
         font.setPointSize(16)
         self.label_dog.setFont(font)
+        self.label_dog.setStyleSheet("background-color: rgba(255, 255, 255,0);\n"
+"border:0px;")
         self.label_dog.setObjectName("label_dog")
         self.verticalLayout_3.addWidget(self.label_dog)
-        spacerItem3 = QtWidgets.QSpacerItem(226, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem3)
-        self.gridLayout_dog = QtWidgets.QGridLayout()
-        self.gridLayout_dog.setObjectName("gridLayout_dog")
-        self.verticalLayout_3.addLayout(self.gridLayout_dog)
+        spacerItem1 = QtWidgets.QSpacerItem(226, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem1)
+        self.scrollArea_dog = QtWidgets.QScrollArea(parent=self.widget_dog)
+        self.scrollArea_dog.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.scrollArea_dog.setWidgetResizable(True)
+        self.scrollArea_dog.setObjectName("scrollArea_dog")
+        self.scrollAreaWidgetContents_dog = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_dog.setGeometry(QtCore.QRect(0, 0, 252, 148))
+        self.scrollAreaWidgetContents_dog.setObjectName("scrollAreaWidgetContents_dog")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_dog)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.verticalLayout_dog = QtWidgets.QVBoxLayout()
+        self.verticalLayout_dog.setObjectName("verticalLayout_dog")
+        self.horizontalLayout_row1dog = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_row1dog.setObjectName("horizontalLayout_row1dog")
+        self.verticalLayout_dog.addLayout(self.horizontalLayout_row1dog)
+        self.verticalLayout_6.addLayout(self.verticalLayout_dog)
+        self.scrollArea_dog.setWidget(self.scrollAreaWidgetContents_dog)
+        self.verticalLayout_3.addWidget(self.scrollArea_dog)
         self.verticalLayout_3.setStretch(1, 1)
         self.verticalLayout_3.setStretch(2, 100)
         self.verticalLayout_2.addWidget(self.widget_dog)
         self.horizontalLayout_2.addLayout(self.verticalLayout_2)
-        self.horizontalLayout_2.setStretch(0, 1)
-        self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_2.setStretch(0, 2)
+        self.horizontalLayout_2.setStretch(1, 1)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -147,6 +185,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_cat.setText(_translate("MainWindow", "Cats"))
         self.pushButton_importPics.setText(_translate("MainWindow", "Import Pics"))
+        self.pushButton_classify.setText(_translate("MainWindow", "Classify!"))
         self.pushButton_askEve.setText(_translate("MainWindow", "Ask Eve"))
         self.label_dog.setText(_translate("MainWindow", "Dogs"))
 

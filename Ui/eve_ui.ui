@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,30 +17,32 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">border-radius:10px;
+background-color: qlineargradient(spread:pad, x1:0, y1:0.046, x2:1, y2:0.972, stop:0 rgba(229, 253, 255, 255), stop:0.994318 rgba(131, 250, 255, 255));
+
+
+
+</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,1">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QWidget" name="widget_input" native="true">
+         <widget class="QLabel" name="label_inputImages">
           <property name="styleSheet">
-           <string notr="true">
-QWidget#widget_input{
-border-radius: 10px;
-border:1px solid purple;
-};
-background-color: rgb(220, 250, 255);
-</string>
+           <string notr="true">background-color: rgb(170, 255, 255);
+background-color: rgb(85, 255, 255);
+background-color: rgb(0, 255, 255);</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <layout class="QGridLayout" name="gridLayout_cat_2"/>
-           </item>
-          </layout>
+          <property name="text">
+           <string/>
+          </property>
          </widget>
         </item>
        </layout>
@@ -53,11 +58,9 @@ background-color: rgb(220, 250, 255);
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QWidget#widget_cat{
-border-radius: 10px;
-border:1px solid purple;
-};
+           <string notr="true">
 background-color: rgb(236, 236, 236);
+
 </string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,100">
@@ -68,6 +71,10 @@ background-color: rgb(236, 236, 236);
                <family>Rupee Foradian</family>
                <pointsize>16</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255,0);
+border:0px;</string>
              </property>
              <property name="text">
               <string>Cats</string>
@@ -88,7 +95,33 @@ background-color: rgb(236, 236, 236);
             </spacer>
            </item>
            <item>
-            <layout class="QGridLayout" name="gridLayout_cat"/>
+            <widget class="QScrollArea" name="scrollArea_cat">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_cat">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>252</width>
+                <height>149</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_cat">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_row1cat"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -111,14 +144,12 @@ background-color: rgb(236, 236, 236);
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-color: white;
-background-color: rgb(44, 128, 255);
-border: 1px solid;
-border-radius: 8px;
-	border-color: rgb(51, 61, 255);
+	background-color: rgb(250, 198, 255);
 }
 
 QPushButton:pressed{
+	background-color: rgb(253, 238, 255);
+	font: 12pt &quot;Rupee Foradian&quot;;
 }</string>
             </property>
             <property name="text">
@@ -127,32 +158,35 @@ QPushButton:pressed{
            </widget>
           </item>
           <item row="0" column="1">
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
+           <widget class="QPushButton" name="pushButton_classify">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>131</width>
+              <height>41</height>
              </size>
             </property>
-           </spacer>
-          </item>
-          <item row="1" column="0">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+            <property name="font">
+             <font>
+              <family>Rupee Foradian</family>
+              <pointsize>13</pointsize>
+             </font>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
+            <property name="styleSheet">
+             <string notr="true">QPushButton {
+	background-color: rgb(250, 198, 255);
+}
+
+QPushButton:pressed{
+	background-color: rgb(253, 238, 255);
+	font: 12pt &quot;Rupee Foradian&quot;;
+}</string>
             </property>
-           </spacer>
+            <property name="text">
+             <string>Classify!</string>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="0" colspan="2">
            <widget class="QPushButton" name="pushButton_askEve">
             <property name="minimumSize">
              <size>
@@ -168,14 +202,13 @@ QPushButton:pressed{
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
-color: white;
-background-color: rgb(44, 128, 255);
-border:1px solid;
-	border-color: rgb(51, 61, 255);
-border-radius: 8px;
+
+	background-color: qlineargradient(spread:pad, x1:0.0677273, y1:0.131, x2:0.909, y2:0.921, stop:0.0511364 rgba(255, 195, 252, 255), stop:1 rgba(255, 168, 223, 255));
 }
 
 QPushButton:pressed{
+
+	background-color: qlineargradient(spread:pad, x1:0.868864, y1:0.87, x2:0.124909, y2:0.149, stop:0.0511364 rgba(255, 184, 251, 255), stop:1 rgba(255, 168, 223, 255));
 }</string>
             </property>
             <property name="text">
@@ -194,11 +227,10 @@ QPushButton:pressed{
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QWidget#widget_dog{
-border-radius: 10px;
-border:1px solid purple;
-};
-background-color: rgb(236, 236, 236);</string>
+           <string notr="true">
+background-color: rgb(236, 236, 236);
+
+</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1,100">
            <item>
@@ -208,6 +240,10 @@ background-color: rgb(236, 236, 236);</string>
                <family>Rupee Foradian</family>
                <pointsize>16</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(255, 255, 255,0);
+border:0px;</string>
              </property>
              <property name="text">
               <string>Dogs</string>
@@ -228,7 +264,33 @@ background-color: rgb(236, 236, 236);</string>
             </spacer>
            </item>
            <item>
-            <layout class="QGridLayout" name="gridLayout_dog"/>
+            <widget class="QScrollArea" name="scrollArea_dog">
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_dog">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>252</width>
+                <height>148</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_6">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_dog">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_row1dog"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </widget>
            </item>
           </layout>
          </widget>
