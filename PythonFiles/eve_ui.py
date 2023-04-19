@@ -16,6 +16,8 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 533)
         MainWindow.setStyleSheet("border-radius:10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0.046, x2:1, y2:0.972, stop:0 rgba(229, 253, 255, 255), stop:0.994318 rgba(131, 250, 255, 255));\n"
+"background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y2:0.813, stop:0 rgba(255, 255, 255, 226), stop:0.994318 rgba(199, 199, 199, 197));\n"
+"background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y2:0.813, stop:0 rgba(255, 255, 255, 239), stop:0.994318 rgba(215, 215, 215, 217));\n"
 "\n"
 "\n"
 "\n"
@@ -23,20 +25,16 @@ class Ui_MainWindow(object):
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.gridLayout_main = QtWidgets.QGridLayout()
+        self.gridLayout_main.setObjectName("gridLayout_main")
         self.label_inputImages = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_inputImages.setStyleSheet("background-color: rgb(170, 255, 255);\n"
-"background-color: rgb(85, 255, 255);\n"
-"background-color: rgb(0, 255, 255);")
+        self.label_inputImages.setStyleSheet("background-color: rgb(0, 255, 255);\n"
+"")
         self.label_inputImages.setText("")
         self.label_inputImages.setObjectName("label_inputImages")
-        self.horizontalLayout.addWidget(self.label_inputImages)
-        self.horizontalLayout_2.addLayout(self.horizontalLayout)
+        self.gridLayout_main.addWidget(self.label_inputImages, 0, 0, 1, 1)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.widget_cat = QtWidgets.QWidget(parent=self.centralwidget)
@@ -171,10 +169,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setStretch(1, 1)
         self.verticalLayout_3.setStretch(2, 100)
         self.verticalLayout_2.addWidget(self.widget_dog)
-        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
-        self.horizontalLayout_2.setStretch(0, 2)
-        self.horizontalLayout_2.setStretch(1, 1)
-        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
+        self.gridLayout_main.addLayout(self.verticalLayout_2, 0, 1, 1, 1)
+        self.gridLayout_main.setColumnStretch(0, 2)
+        self.gridLayout_main.setColumnStretch(1, 1)
+        self.horizontalLayout.addLayout(self.gridLayout_main)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
