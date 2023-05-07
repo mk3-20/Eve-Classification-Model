@@ -92,17 +92,23 @@ background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y
      <string notr="true">QPushButton {
 	background-color: rgb(250, 198, 255);
 	background-color: rgb(253, 235, 255);
-border-radius: 10px;
+	border-radius: 10px;
 	color: rgb(0, 0, 255);
 }
 
 QPushButton:pressed{
 	background-color: rgb(253, 238, 255);
-	font: 12pt &quot;Rupee Foradian&quot;;
+	font: 8pt &quot;Rupee Foradian&quot;;
 }</string>
     </property>
     <property name="text">
      <string>[click to import images or drag images]</string>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>27</width>
+      <height>27</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_classify">
@@ -147,86 +153,10 @@ QPushButton:pressed{
      <string>Classify!</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_cat">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>130</y>
-      <width>101</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	border: 3px solid black;
-	border-radius: 10px;
-}
-
-QPushButton:hover{
-	border-color: rgb(255, 255, 0);
-}
-
-QPushButton:pressed{
-	border: 2px solid black;
-}
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>cat_button_img.jpg</normaloff>cat_button_img.jpg</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>91</width>
-      <height>91</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_dog">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>130</y>
-      <width>101</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
-	border: 3px solid black;
-	border-radius: 10px;
-}
-
-QPushButton:hover{
-	border-color: rgb(255, 255, 0);
-}
-QPushButton:pressed{
-	border: 2px solid black;
-}
-
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>dog_button_img.jpg</normaloff>dog_button_img.jpg</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>91</width>
-      <height>91</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_close">
     <property name="geometry">
      <rect>
-      <x>1020</x>
+      <x>10</x>
       <y>10</y>
       <width>31</width>
       <height>31</height>
@@ -240,6 +170,9 @@ QPushButton:pressed{
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;close&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -276,7 +209,7 @@ QPushButton:pressed{
    <widget class="QPushButton" name="pushButton_minimize">
     <property name="geometry">
      <rect>
-      <x>980</x>
+      <x>50</x>
       <y>10</y>
       <width>31</width>
       <height>31</height>
@@ -290,6 +223,9 @@ QPushButton:pressed{
       <italic>false</italic>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;minimize&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -503,6 +439,625 @@ color: rgb(79, 79, 79);
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QFrame" name="frame_accuracy">
+    <property name="geometry">
+     <rect>
+      <x>1062</x>
+      <y>-3</y>
+      <width>681</width>
+      <height>558</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#frame_accuracy{
+background-color: rgba(255, 85, 127,1);
+border-radius: 15px;
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>7</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>7</number>
+     </property>
+     <property name="bottomMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_cats">
+       <property name="font">
+        <font>
+         <family>Gill Sans MT Condensed</family>
+         <pointsize>27</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+background-color: rgba(255, 255, 255,0.7);
+color: rgb(70, 70, 70);</string>
+       </property>
+       <property name="text">
+        <string>Cats</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_cats">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QScrollArea{
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_cats">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>667</width>
+          <height>185</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QWidget#scrollAreaWidgetContents_cats{
+background-color: rgba(255, 255, 255,0.7);
+}</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>2</width>
+         <height>8</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_dogs">
+       <property name="font">
+        <font>
+         <family>Gill Sans MT Condensed</family>
+         <pointsize>27</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+background-color: rgba(255, 255, 255,0.7);
+color: rgb(70, 70, 70);</string>
+       </property>
+       <property name="text">
+        <string>Dogs</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QScrollArea" name="scrollArea_dogs">
+       <property name="styleSheet">
+        <string notr="true">QScrollArea{
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_dogs">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>667</width>
+          <height>184</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QWidget#scrollAreaWidgetContents_dogs{
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+background-color: rgba(255, 255, 255,0.7);
+}</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>8</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_accuracy">
+         <property name="minimumSize">
+          <size>
+           <width>131</width>
+           <height>41</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	color: rgb(56, 56, 56);
+	background-color: rgb(255, 255, 127);
+	border-color: rgba(0, 0 ,0,0.6);
+	border-radius: 10px;
+	border: 3px solid;
+	border-top: 1px solid;
+	border-left: 1px solid;
+}
+
+QPushButton:hover{
+	background-color: rgba(170, 255, 255,0.9);
+}
+QPushButton:pressed{
+	border: 3px solid;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string> All classifications are correct, Eve! :D </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_importMore">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>250</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;import more images&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border: 2px solid;
+border-color: rgba(0,0,0,0.4);
+background-color: rgba(170, 255, 127,0.2);
+border-radius: 14px;
+}
+
+QPushButton:hover{
+border-color: rgb(0,0,0);
+background-color: rgb(170, 255, 127);
+}
+
+QPushButton:pressed{
+	border: 3px solid black;
+	color: rgb(222, 222, 222);
+	background-color: rgb(102, 104, 255);
+	background-color: rgb(0, 170, 127);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_resetImports">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>290</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;reset input images&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border: 2px solid black;
+border-color: rgba(0,0,0,0.4);
+background-color: rgba(255, 138, 169,0.2);
+border-radius: 14px;
+}
+
+QPushButton:hover{
+border-color: rgb(0,0,0);
+background-color: rgb(255, 138, 169);
+}
+
+QPushButton:pressed{
+	border: 3px solid black;
+	background-color: rgb(255, 228, 230);
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_collapseAccuracy">
+    <property name="geometry">
+     <rect>
+      <x>346</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;collapse&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border: 2px solid;
+border-color: rgba(0,0,0,0.4);
+background-color: rgba(170, 255, 255,0.2);
+border-radius: 15px;
+}
+
+QPushButton:hover{
+border-color: rgb(0,0,0);
+background-color: rgb(170, 255, 255);
+}
+
+QPushButton:pressed{
+	border: 3px solid;
+	border-color: rgb(95, 95, 95);
+	background-color: rgb(102, 104, 255);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_expandAccuracy">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;expand&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+border: 2px solid;
+border-color: rgba(0,0,0,0.4);
+background-color: rgba(170, 255, 255,0.2);
+border-radius: 15px;
+}
+
+QPushButton:hover{
+border-color: rgb(0,0,0);
+background-color: rgb(170, 255, 255);
+}
+
+QPushButton:pressed{
+	border: 3px solid;
+	border-color: rgb(95, 95, 95);
+	background-color: rgb(102, 104, 255);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_catBasket">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>130</y>
+      <width>101</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	border: 3px solid black;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-color: pink; 
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_dogBasket">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>130</y>
+      <width>101</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{
+	border: 3px solid black;
+	border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-color: pink; 
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_speedUp">
+    <property name="geometry">
+     <rect>
+      <x>764</x>
+      <y>270</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>10</pointsize>
+      <weight>10</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgba(79, 79, 79,0.7);
+background-color: rgba(250, 198, 255,0.2);
+border-radius: 10px;
+font: 87 10pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover{
+color: rgb(79, 79, 79);
+background-color: rgba(255, 255, 0,0.7);
+}
+
+QPushButton:pressed{
+	font: 87 8pt &quot;Segoe UI Black&quot;;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>slow_down_icon.png</normaloff>slow_down_icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_slowDown">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>327</y>
+      <width>101</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Black</family>
+      <pointsize>10</pointsize>
+      <weight>10</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+color: rgba(79, 79, 79,0.7);
+background-color: rgba(250, 198, 255,0.2);
+border-radius: 10px;
+font: 87 10pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover{
+color: rgb(79, 79, 79);
+background-color: rgba(255, 255, 0,0.7);
+}
+
+QPushButton:pressed{
+	font: 87 8pt &quot;Segoe UI Black&quot;;
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>speed_up_icon.png</normaloff>speed_up_icon.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <zorder>label_bg</zorder>
+   <zorder>label_inputImages</zorder>
+   <zorder>pushButton_importPics</zorder>
+   <zorder>pushButton_classify</zorder>
+   <zorder>pushButton_askEve</zorder>
+   <zorder>pushButton_credits</zorder>
+   <zorder>label_eve</zorder>
+   <zorder>frame_accuracy</zorder>
+   <zorder>label_speech_bubble</zorder>
+   <zorder>label_dialogue</zorder>
+   <zorder>pushButton_minimize</zorder>
+   <zorder>pushButton_close</zorder>
+   <zorder>pushButton_collapseAccuracy</zorder>
+   <zorder>pushButton_expandAccuracy</zorder>
+   <zorder>label_catBasket</zorder>
+   <zorder>label_dogBasket</zorder>
+   <zorder>pushButton_importMore</zorder>
+   <zorder>pushButton_resetImports</zorder>
+   <zorder>pushButton_speedUp</zorder>
+   <zorder>pushButton_slowDown</zorder>
   </widget>
  </widget>
  <resources/>
