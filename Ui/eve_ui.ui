@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
+    <width>1886</width>
     <height>552</height>
    </rect>
   </property>
@@ -936,7 +936,7 @@ QPushButton:pressed{
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_speedUp">
+   <widget class="QPushButton" name="pushButton_slowDown">
     <property name="geometry">
      <rect>
       <x>764</x>
@@ -978,16 +978,16 @@ QPushButton:pressed{
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>slow_down_icon.png</normaloff>slow_down_icon.png</iconset>
+      <normaloff>reset_icon.png</normaloff>reset_icon.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>50</width>
-      <height>50</height>
+      <width>40</width>
+      <height>40</height>
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_slowDown">
+   <widget class="QPushButton" name="pushButton_speedUp">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -1033,10 +1033,873 @@ QPushButton:pressed{
     </property>
     <property name="iconSize">
      <size>
-      <width>50</width>
-      <height>50</height>
+      <width>40</width>
+      <height>40</height>
      </size>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame_results">
+    <property name="geometry">
+     <rect>
+      <x>1062</x>
+      <y>-3</y>
+      <width>681</width>
+      <height>558</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#frame_results{
+	background-color: rgb(85, 255, 255);
+border-radius: 15px;
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>7</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>7</number>
+     </property>
+     <property name="bottomMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_results">
+       <property name="minimumSize">
+        <size>
+         <width>667</width>
+         <height>56</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Gill Sans MT Condensed</family>
+         <pointsize>27</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:15px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+background-color: rgba(255, 255, 255,0.7);
+color: rgb(70, 70, 70);</string>
+       </property>
+       <property name="text">
+        <string>Results</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_inside_results">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>423</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 1);
+border-top-left-radius:0px;
+border-top-right-radius:0px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="topMargin">
+         <number>15</number>
+        </property>
+        <property name="bottomMargin">
+         <number>15</number>
+        </property>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>1</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <spacer name="horizontalSpacer_14">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="1,0,0,1">
+              <item>
+               <spacer name="horizontalSpacer_12">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_total_images">
+                <property name="font">
+                 <font>
+                  <family>HP Simplified</family>
+                  <pointsize>17</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Total Images:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_value_total_images">
+                <property name="font">
+                 <font>
+                  <family>Impact</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(170, 85, 255);</string>
+                </property>
+                <property name="text">
+                 <string>00</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0,1">
+                  <item>
+                   <spacer name="horizontalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_correctly_classified">
+                    <property name="font">
+                     <font>
+                      <family>HP Simplified</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Correctly Classified</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1,0,1,0">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout">
+                    <item>
+                     <widget class="QLabel" name="label_cats_correctly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Cats</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_correct_cats">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>50</weight>
+                        <italic>false</italic>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">font: 25pt &quot;Impact&quot;;
+color: rgb(85, 255, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_6">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                    <item>
+                     <widget class="QLabel" name="label_dogs_correctly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Dogs</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_correct_dogs">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">
+color: rgb(85, 255, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_7">
+                    <item>
+                     <widget class="QLabel" name="label_total_correctly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Total</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_correct_total">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">
+color: rgb(85, 255, 0);</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <spacer name="horizontalSpacer_8">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_incorrectly_classified">
+                    <property name="font">
+                     <font>
+                      <family>HP Simplified</family>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Incorrectly Classified</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1,0,1,0">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_9">
+                    <item>
+                     <widget class="QLabel" name="label_cats_incorrectly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Cats</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_incorrect_cats">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 85, 127);</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_10">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_10">
+                    <item>
+                     <widget class="QLabel" name="label_dogs_incorrectly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Dogs</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_incorrect_dogs">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 85, 127);</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_11">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_11">
+                    <item>
+                     <widget class="QLabel" name="label_total_incorrectly_classified">
+                      <property name="font">
+                       <font>
+                        <family>HP Simplified</family>
+                        <pointsize>17</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Total</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_value_incorrect_total">
+                      <property name="font">
+                       <font>
+                        <family>Impact</family>
+                        <pointsize>25</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">color: rgb(255, 85, 127);
+</string>
+                      </property>
+                      <property name="text">
+                       <string>00</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="1,0,0,1">
+              <item>
+               <spacer name="horizontalSpacer_16">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_accuracy_result">
+                <property name="font">
+                 <font>
+                  <family>HP Simplified</family>
+                  <pointsize>17</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Accuracy:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_value_accuracy">
+                <property name="font">
+                 <font>
+                  <family>Impact</family>
+                  <pointsize>25</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(170, 85, 255);</string>
+                </property>
+                <property name="text">
+                 <string>00.0%</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_17">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_15">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>1</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_8">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>2</width>
+         <height>8</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_save_output">
+         <property name="minimumSize">
+          <size>
+           <width>131</width>
+           <height>41</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	color: rgb(56, 56, 56);
+	background-color: rgb(255, 255, 127);
+	border-color: rgba(0, 0 ,0,0.6);
+	border-radius: 10px;
+	border: 3px solid;
+	border-top: 1px solid;
+	border-left: 1px solid;
+}
+
+QPushButton:hover{
+	background-color: rgb(78, 255, 176);
+}
+QPushButton:pressed{
+	border: 3px solid;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string>Save Output</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_18">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_thankyou">
+         <property name="minimumSize">
+          <size>
+           <width>131</width>
+           <height>41</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	color: rgb(56, 56, 56);
+	background-color: rgb(255, 255, 127);
+	border-color: rgba(0, 0 ,0,0.6);
+	border-radius: 10px;
+	border: 3px solid;
+	border-top: 1px solid;
+	border-left: 1px solid;
+}
+
+QPushButton:hover{
+	background-color:rgb(255, 197, 248);
+}
+QPushButton:pressed{
+	border: 3px solid;
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string>Thank You Eve :)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_19">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </widget>
    <zorder>label_bg</zorder>
    <zorder>label_inputImages</zorder>
@@ -1044,20 +1907,21 @@ QPushButton:pressed{
    <zorder>pushButton_classify</zorder>
    <zorder>pushButton_askEve</zorder>
    <zorder>pushButton_credits</zorder>
-   <zorder>label_eve</zorder>
    <zorder>frame_accuracy</zorder>
-   <zorder>label_speech_bubble</zorder>
-   <zorder>label_dialogue</zorder>
    <zorder>pushButton_minimize</zorder>
    <zorder>pushButton_close</zorder>
-   <zorder>pushButton_collapseAccuracy</zorder>
    <zorder>pushButton_expandAccuracy</zorder>
    <zorder>label_catBasket</zorder>
    <zorder>label_dogBasket</zorder>
    <zorder>pushButton_importMore</zorder>
    <zorder>pushButton_resetImports</zorder>
-   <zorder>pushButton_speedUp</zorder>
    <zorder>pushButton_slowDown</zorder>
+   <zorder>pushButton_speedUp</zorder>
+   <zorder>frame_results</zorder>
+   <zorder>pushButton_collapseAccuracy</zorder>
+   <zorder>label_eve</zorder>
+   <zorder>label_speech_bubble</zorder>
+   <zorder>label_dialogue</zorder>
   </widget>
  </widget>
  <resources/>
