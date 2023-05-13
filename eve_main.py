@@ -30,22 +30,26 @@
 """
 
 # IMPORTS
-
 import os
 import shutil
 import sys
+import timeit
+import traceback
 from datetime import datetime
+from random import sample
 
+import cv2
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from PIL import Image
 from PyQt6.QtCore import QSize, Qt, QPoint, QPropertyAnimation, QEasingCurve, QParallelAnimationGroup, \
-    QSequentialAnimationGroup, QTimer, QRect
+    QSequentialAnimationGroup, QTimer, QRect, QRunnable, pyqtSignal, QObject, pyqtSlot, QThreadPool
 from PyQt6.QtGui import QPixmap, QMouseEvent, QFont, QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QVBoxLayout, QHBoxLayout, QMessageBox, \
-    QPushButton, QWidget
+    QPushButton, QWidget, QInputDialog
 from keras.preprocessing.image import ImageDataGenerator
+from numpy import nan
 
 import eve_strings as evestr
 
@@ -67,6 +71,8 @@ main_ui_file_name = f'{evestr.CWD}/Ui/eve_ui'  # ONLY FOR DEVELOPMENT (COMMENT O
 convert_ui(main_ui_file_name, "eve_ui")  # ONLY FOR DEVELOPMENT (COMMENT OUT BEFORE MAKING EXE)
 
 from eve_ui import Ui_MainWindow
+
+
 class Result:
     __input_dataframe: pd.DataFrame
     __classified_dataframe: pd.DataFrame
@@ -107,6 +113,7 @@ class Result:
                 self.__classified_dataframe.loc[self.__classified_dataframe['Filename'] == i, 'Category'].iloc[0]
             if original_category:
                 self.__incorrect_dogs += 1
+
             self.__classified_dataframe.loc[
                 self.__classified_dataframe['Filename'] == i, 'Category'] = 0 if original_category else 1
 
@@ -119,10 +126,12 @@ class Result:
         self.__correct_cats = temp_cat_count - self.__incorrect_cats
         self.__correct_dogs = temp_dog_count - self.__incorrect_dogs
 
-        if(self.__cats_count):
-            self.__cats_list = list(self.__classified_dataframe.loc[self.__classified_dataframe['Category']==0]['Filename'].values)
+        if (self.__cats_count):
+            self.__cats_list = list(
+                self.__classified_dataframe.loc[self.__classified_dataframe['Category'] == 0]['Filename'].values)
         if (self.__dogs_count):
-            self.__dogs_list = list(self.__classified_dataframe.loc[self.__classified_dataframe['Category']==1]['Filename'].values)
+            self.__dogs_list = list(
+                self.__classified_dataframe.loc[self.__classified_dataframe['Category'] == 1]['Filename'].values)
 
     def input_dataframe(self) -> pd.DataFrame:
         return self.__input_dataframe
@@ -171,8 +180,8 @@ class Result:
 
     def saveResult(self):
         print("SAVING.....")
-        save_folder_path = QFileDialog.getExistingDirectory(self.parent,"Select a save location", evestr.CWD)
-        now = datetime.now().strftime("%d_%m_%Y %H_%M_%S")
+        save_folder_path = QFileDialog.getExistingDirectory(self.parent, "Select a save location", evestr.CWD)
+        now = datetime.now().strftime("%d-%m-%Y %H_%M_%S")
         save_folder_now = save_folder_path + '/' + now
         cats_folder_path = save_folder_now + '/Cats'
         dogs_folder_path = save_folder_now + '/Dogs'
@@ -182,7 +191,7 @@ class Result:
             os.makedirs(cats_folder_path)
         if not os.path.exists(dogs_folder_path):
             os.makedirs(dogs_folder_path)
-        with open(save_folder_now+'/Result_Summary.txt', 'w') as sf:
+        with open(save_folder_now + '/Result_Summary.txt', 'w') as sf:
             sf.write(f"Total Images = {self.__total_input}\n")
             sf.write(f"Total Cats = {self.__cats_count}\n")
             sf.write(f"Total Dogs = {self.__dogs_count}\n\n")
@@ -198,6 +207,77 @@ class Result:
         for d in self.__dogs_list:
             shutil.copy2(d, dogs_folder_path)
 
+
+class WorkerSignals(QObject):
+    '''
+    Defines the signals available from a running worker thread.
+
+    Supported signals are:
+
+    finished
+        No data
+
+    error
+        tuple (exctype, value, traceback.format_exc() )
+
+    result
+        object data returned from processing, anything
+
+    progress
+        int indicating % progress
+
+    '''
+    finished = pyqtSignal()
+    error = pyqtSignal(tuple)
+    result = pyqtSignal(object)
+    progress = pyqtSignal(int)
+
+
+class Worker(QRunnable):
+    '''
+    Worker thread
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
+
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+
+        # Store constructor arguments (re-used for processing)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        self.signals = WorkerSignals()
+
+        # Add the callback to our kwargs
+        self.kwargs['progress_callback'] = self.signals.progress
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+
+        # Retrieve args/kwargs here; and fire processing using them
+        try:
+            result = self.fn(*self.args, **self.kwargs)
+        except:
+            traceback.print_exc()
+            exctype, value = sys.exc_info()[:2]
+            self.signals.error.emit((exctype, value, traceback.format_exc()))
+        else:
+            self.signals.result.emit(result)  # Return the result of the processing
+        finally:
+            self.signals.finished.emit()  # Done
+
+
 class MainScreen(QMainWindow, Ui_MainWindow):
     cat_row, cat_col = 0, 0
     dog_row, dog_col = 0, 0
@@ -206,7 +286,6 @@ class MainScreen(QMainWindow, Ui_MainWindow):
     img_size = 225  # (for DL Model)
     batch_size = 32  # (for DL Model)
     testImageGenerator = ImageDataGenerator(rescale=1. / 255)  # for rescaling image (for DL Model)
-
 
     def __init__(self):  # Constructor
         super(MainScreen, self).__init__()  # Calling the super class's constructor
@@ -248,14 +327,19 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             columns=['Filename'])  # Dataframe that'll include the filenames and the output class (0 for cat, 1 for dog)
         self.eve_model = tf.keras.models.load_model("eve_model.h5")
         self.incorrect_classifications_list: list[str] = []
-        self.result_object: Result = Result(self,self.inputImagesDf)
+        self.result_object: Result = Result(self, self.inputImagesDf)
 
-        self.importPicsClicked = lambda _: self.setInputImages(
-            # Called when user wants to select images from local storage
-            QFileDialog.getOpenFileNames(parent=self, caption="Select Images",
-                                         directory=getLastFolderOpened(),
-                                         filter="Images (*.jpg *.jpeg *.png)")[0]
-        )
+        # self.importPicsClicked = lambda _: self.setInputImages(
+        #     # Called when user wants to select images from local storage
+        #     QFileDialog.getOpenFileNames(parent=self, caption="Select Images",
+        #                                  directory=getLastFolderOpened(),
+        #                                  filter="Images (*.jpg *.jpeg *.png)")[0]
+        # )
+        def getSampleInput():
+            num, ok = QInputDialog.getText(self, 'Sample Input', 'Sample Size')
+            self.setInputImages(sample(image_files, int(num)))
+
+        self.importPicsClicked = getSampleInput
 
         # Connecting Signals (button clicks) and Slots (functions)
         self.pushButton_importPics.clicked.connect(self.importPicsClicked)
@@ -271,7 +355,6 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.pushButton_accuracy.clicked.connect(self.accuracyBtnClicked)
         self.pushButton_save_output.clicked.connect(self.saveResultClicked)
         self.pushButton_thankyou.clicked.connect(self.thankYouEveClicked)
-
 
         # ANIMATIONS
         bubble_anim_factor = 10
@@ -405,7 +488,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
                                                                             QPoint(self.frame_accuracy.width(), 0))
 
         self.results_collapse_anim_move_frame = get_collapse_accuracy_anim(self.frame_results,
-                                                                           QPoint(self.frame_results.width(), 0),evestr.DEFAULT_ANIM_RESULTS_COLLAPSE)
+                                                                           QPoint(self.frame_results.width(), 0),
+                                                                           evestr.DEFAULT_ANIM_RESULTS_COLLAPSE)
 
         self.expand_accuracy_anim_grp = QParallelAnimationGroup()
         self.expand_accuracy_anim_grp.addAnimation(self.accuracy_expand_anim_move_eve)
@@ -414,17 +498,12 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.expand_accuracy_anim_grp.addAnimation(self.accuracy_expand_anim_move_frame)
         self.expand_accuracy_anim_grp.finished.connect(self.pushButton_collapseAccuracy.show)
 
-
-
         self.collapse_accuracy_anim_grp = QParallelAnimationGroup()
         self.collapse_accuracy_anim_grp.addAnimation(self.accuracy_collapse_anim_move_eve)
         self.collapse_accuracy_anim_grp.addAnimation(self.accuracy_collapse_anim_move_bubble)
         self.collapse_accuracy_anim_grp.addAnimation(self.accuracy_collapse_anim_move_dialogue)
         self.collapse_accuracy_anim_grp.addAnimation(self.accuracy_collapse_anim_move_frame)
         self.collapse_accuracy_anim_grp.finished.connect(self.pushButton_expandAccuracy.show)
-
-
-
 
         self.expand_results_anim_seq = QParallelAnimationGroup()
         self.expand_results_anim_seq.addAnimation(self.results_expand_anim_move_frame)
@@ -451,9 +530,13 @@ class MainScreen(QMainWindow, Ui_MainWindow):
 
         self.just_identified_dog = False
         self.first_image_flag = True
-        self.current_batch: list[tuple[str, int]] = []
+        self.same_batch = False
         self.anim_speed_multiplier = 1
         QTimer.singleShot(evestr.DEFAULT_DELAY_INTRO, self.intro)
+        self.model_worker = None
+        self.threadpool = QThreadPool()
+        self.animation_running = False
+        self.current_img_index = 0
 
     def intro(self):
         self.setDialogue("I'm Eve :D")
@@ -482,13 +565,14 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             self.showSpeechBubble(False)
 
             saveLastFolderOpened(os.path.dirname(path_list[-1]) + '/')
-            self.inputImagesDf = pd.concat([pd.DataFrame({'Filename': path_list}), self.inputImagesDf]).reset_index(
+            self.inputImagesDf = pd.concat([self.inputImagesDf, pd.DataFrame({'Filename': path_list})]).reset_index(
                 drop=True)
-            self.result_object = Result(self,self.inputImagesDf)
+            self.result_object = Result(self, self.inputImagesDf)
 
             print("INPUT DF: ", self.inputImagesDf)
-            if len(self.inputImagesDf.index) > 0:
-                img = self.inputImagesDf.iloc[0]['Filename']
+            print(f"INPUT LEN = {len(self.inputImagesDf.index)}")
+            if len(self.inputImagesDf.index) > self.current_img_index:
+                img = self.inputImagesDf.iloc[self.current_img_index]['Filename']
                 resize = self.label_inputImages.height() - 50
                 img_pixmap = QPixmap(img).scaled(resize, resize, Qt.AspectRatioMode.IgnoreAspectRatio)
                 self.label_inputImages.setPixmap(img_pixmap)
@@ -515,63 +599,130 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.pushButton_classify.hide()
         self.showSpeechBubble(True)
         self.inputImagesDf = pd.DataFrame(columns=['Filename'])
-        if self.current_batch:
+        if self.same_batch:
             self.pushButton_expandAccuracy.show()
             self.setDialogue("You can import more images or check my accuracy")
         else:
             self.setDialogue("Please give me some images to work with :D")
 
+    def runModel(self, progress_callback):
+        # try:
+        # BATCH-WISE
+        total_input_images = len(self.inputImagesDf.index)
+        batch_one_size = 0
+        first_nan_index = 0
+        if 'Category' in self.inputImagesDf.columns:
+            first_nan_index = self.inputImagesDf['Category'].isnull().idxmax()
+            total_input_images -= first_nan_index
+
+        print(f"{first_nan_index = }, {total_input_images = }")
+        if(total_input_images>4):
+            batch_one_size = (((total_input_images // 100) + 1) * 4 if total_input_images > 200 else 4)
+            print("batch_one_size = ", batch_one_size)
+            batch_one_size += first_nan_index
+
+        threshold = 0.5  # >0.5 = 1 (Dog)  | <0.5 = 0 (Cat)
+
+        start_time = timeit.default_timer()
+        if batch_one_size > 0:
+            batch1 = self.testImageGenerator.flow_from_dataframe(self.inputImagesDf.loc[first_nan_index:batch_one_size-1, :], "",
+                                                                 x_col='Filename', y_col=None,
+                                                                 class_mode=None, batch_size=self.batch_size,
+                                                                 target_size=(self.img_size, self.img_size),
+                                                                 shuffle=False)
+
+            predictions1 = self.eve_model.predict(batch1,
+                                                  steps=np.ceil(self.inputImagesDf.loc[first_nan_index:batch_one_size-1, :].shape[
+                                                                    0] / self.batch_size))  # numpy.ndarray [[val] [val] ..]
+
+            self.inputImagesDf.loc[first_nan_index:batch_one_size - 1, 'Category'] = np.where(predictions1 > threshold, 1, 0)
+            progress_callback.emit(True)
+
+
+
+        batch2 = self.testImageGenerator.flow_from_dataframe(self.inputImagesDf.loc[batch_one_size:, :], "",
+                                                             x_col='Filename', y_col=None,
+                                                             class_mode=None, batch_size=self.batch_size,
+                                                             target_size=(self.img_size, self.img_size),
+                                                             shuffle=False)
+
+        predictions2 = self.eve_model.predict(batch2,
+                                              steps=np.ceil(
+                                                  self.inputImagesDf.loc[batch_one_size:, :].shape[
+                                                      0] / self.batch_size))
+
+        self.inputImagesDf.loc[batch_one_size:, 'Category'] = np.where(predictions2 > threshold, 1, 0)
+        end_time = timeit.default_timer()
+        progress_callback.emit(True)
+        print(f"BATCH-WISE TIME for {total_input_images} images = {end_time - start_time} seconds")
+
+        # self.result_object.setClassifiedDataframe(self.inputImagesDf)
+
+        # print("OUTPUT DF: ", self.inputImagesDf)
+        #
+        # start_time = timeit.default_timer()
+        # count = 0
+        # # INDIVIDUAL-IMAGES ITERATIVELY
+        # for img in self.inputImagesDf['Filename']:
+        #     count += 1
+        #     image = cv2.imread(img)
+        #     image = cv2.resize(image, dsize=(225, 225)) / 255
+        #     image = image.reshape(1, 225, 225, 3)
+        #     category = 1 if (self.eve_model.predict(image)[0][0]) > 0.5 else 0
+        #     progress_callback.emit(count)
+        #
+        #     self.inputImagesDf.loc[self.inputImagesDf['Filename'] == img, 'Category'] = category
+        # end_time = timeit.default_timer()
+        #
+        # print(f"ITERATIVE-WISE TIME for {len(self.inputImagesDf.index)} images = {end_time - start_time} seconds")
+
+    # except Exception as e:
+    #     QMessageBox.information(self, "ERROR4444 :((", str(e))
+
     def classifyClicked(self):
         """
             ACTUAL Classification of the input images using DL Model and setting the output in the DATAFRAME
         """
-        try:
-            self.pushButton_classify.hide()
-            self.pushButton_importMore.hide()
-            self.pushButton_resetImports.hide()
-            self.label_catBasket.show()
-            self.label_dogBasket.show()
-            self.pushButton_speedUp.show()
-            self.pushButton_slowDown.show()
-            self.pushButton_askEve.hide()
-            self.pushButton_credits.hide()
-            self.showSpeechBubble(True)
 
-            # imgs_directory = os.path.dirname(self.inputImagesDf.iloc[0]['Filename'])
-            # print(imgs_directory)
-            # tf.keras.utils.image_dataset_from_directory
+        self.pushButton_classify.hide()
+        self.pushButton_importMore.hide()
+        self.pushButton_resetImports.hide()
+        self.label_catBasket.show()
+        self.label_dogBasket.show()
+        self.pushButton_askEve.hide()
+        self.pushButton_credits.hide()
+        self.showSpeechBubble(True)
+        self.label_dialogue.setFont(QFont("Gill Sans MT Condensed", 18))
+        self.label_eve.setPixmap(QPixmap(evestr.getRandomPose(evestr.PoseType.THINKING)))
+        self.setDialogue("Hmm.. Let's see what we have")
+        if not self.same_batch:
+            self.current_img_index = 0
 
-            # test_generator = tf.keras.utils.image_dataset_from_directory(directory="M:\Mk_Coding\lang_Python\Projects\eve_extras\Test_Images\\", class_names=None, batch_size=self.batch_size,
-            #                                                              image_size=(self.img_size, self.img_size),
-            #                                                              shuffle=False)
+        def progress_batch_one_done(batch_one_done: bool):
+            print("BATCH ONE DONE = ", batch_one_done)
+            if batch_one_done and not self.animation_running: self.beginAnimation0()
 
-            # predictions = []
-            # for img in self.inputImagesDf['Filename']:
-            #     image = cv2.imread(img)
-            #     image = cv2.resize(image, dsize=(225, 225)) / 255
-            #     image = image.reshape(1, 225, 225, 3)
-            #     predictions.append(self.eve_model.predict(image)[0][0])
-            #
-            # predictions = np.array(predictions).reshape((-1, 1))
-            # print(predictions,type(predictions))
-            test_generator = self.testImageGenerator.flow_from_dataframe(self.inputImagesDf, "",
-                                                                         x_col='Filename', y_col=None,
-                                                                         class_mode=None, batch_size=self.batch_size,
-                                                                         target_size=(self.img_size, self.img_size),
-                                                                         shuffle=False)
-            predictions = self.eve_model.predict(test_generator,
-                                                 steps=np.ceil(self.inputImagesDf.shape[0] / self.batch_size))
-            # print(type(predict))
-
-            threshold = 0.5  # >0.5 = 1 (Dog)  | <0.5 = 0 (Cat)
-
-            self.inputImagesDf['Category'] = np.where(predictions > threshold, 1, 0)
+        def enableSpeedControl():
+            self.pushButton_speedUp.setDisabled(False)
+            self.pushButton_slowDown.setDisabled(False)
             self.result_object.setClassifiedDataframe(self.inputImagesDf)
-            print("OUTPUT DF: ", self.inputImagesDf)
-            self.thinkingPauseAnimation1()
+            print(f"TOOK {self.current_img_index} animations for complete classifications")
 
-        except Exception as e:
-            QMessageBox.information(self, "ERROR4444 :((", str(e))
+        self.pushButton_speedUp.setDisabled(True)
+        self.pushButton_slowDown.setDisabled(True)
+
+        print(f"INPUT LEN = {len(self.inputImagesDf.index)}")
+        self.model_worker = Worker(self.runModel)
+        self.model_worker.signals.finished.connect(enableSpeedControl)
+        self.model_worker.signals.progress.connect(progress_batch_one_done)
+        self.threadpool.start(self.model_worker)
+
+    def beginAnimation0(self):
+        self.animation_running = True
+
+        self.pushButton_speedUp.show()
+        self.pushButton_slowDown.show()
+        self.thinkingPauseAnimation1()
 
     def collapseAccuracyClicked(self):
         self.pushButton_importPics.show()
@@ -599,11 +750,19 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         if self.input_anim_move_horizontal.targetObject() is not None:
             self.input_anim_move_horizontal.targetObject().deleteLater()
 
-        if len(self.inputImagesDf.index) < 1:
+        if len(self.inputImagesDf.index) < self.current_img_index:
             return
 
-        img_path, img_is_dog = self.inputImagesDf.iloc[0]
-        self.current_batch.append((img_path, img_is_dog))
+        print(f"{self.current_img_index = }")
+        img_path, img_is_dog = self.inputImagesDf.iloc[self.current_img_index]
+        # print("PATH: ", img_path, "IMG IS: ", img_is_dog, type(img_is_dog), "LENGTH: ", len(self.inputImagesDf.index))
+        if (img_is_dog != 0 and img_is_dog != 1) or img_is_dog == nan:
+            print("PAUSINGGGGGGGGGGGG")
+            self.pushButton_slowDown.click()
+            self.thinkingPauseAnimation1()
+            return
+
+        self.same_batch = True
 
         self.just_identified_dog = img_is_dog
         self.label_eve.setPixmap(QPixmap(evestr.getRandomPose(evestr.PoseType.POINTING)))
@@ -611,7 +770,9 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.label_dialogue.setFont(QFont("Gill Sans MT Condensed", 25))
         self.setDialogue(
             evestr.getRandomDialogue(evestr.DialogueType.DOG if img_is_dog else evestr.DialogueType.CAT))
-        self.inputImagesDf = self.inputImagesDf.iloc[1:, :]  # popping first row from the dataframe
+        self.current_img_index += 1
+
+        # self.inputImagesDf = self.inputImagesDf.iloc[1:, :]  # popping first row from the dataframe
 
         def updateIncorrectList(label: QLabel):
             incorrect_img_path = label.objectName()
@@ -675,8 +836,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.input_anim_seq.start()
 
         self.insertInVLayout(self.verticalLayout_dog if img_is_dog else self.verticalLayout_cat, img_label)
-        if len(self.inputImagesDf.index) > 0:
-            img = self.inputImagesDf.iloc[0]['Filename']
+        if len(self.inputImagesDf.index) > self.current_img_index:
+            img = self.inputImagesDf.iloc[self.current_img_index]['Filename']
             resize = self.label_inputImages.height() - 50
             img_pixmap = QPixmap(img).scaled(resize, resize, Qt.AspectRatioMode.IgnoreAspectRatio)
             self.label_inputImages.setPixmap(img_pixmap)
@@ -690,7 +851,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             self.basket_catdog_shrink_animation.setTargetObject(target_btn)
             self.btn_catdog_pop_seq.start()
 
-        if len(self.inputImagesDf.index) > 0:
+        if len(self.inputImagesDf.index) > self.current_img_index:
             QTimer.singleShot(int(evestr.DEFAULT_DELAY_THINKING * self.anim_speed_multiplier),
                               self.thinkingPauseAnimation1)
 
@@ -698,6 +859,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             self.label_eve.setPixmap(QPixmap(evestr.getPose(evestr.EVE_CELEBRATING)))
             self.setDialogue("That was fun ^_^")
             self.first_image_flag = True
+            self.animation_running = False
+
             QTimer.singleShot(int(evestr.DEFAULT_DELAY_ACCURACY * self.anim_speed_multiplier), self.accuracyAnimation4)
 
     def accuracyAnimation4(self):
@@ -716,6 +879,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.scrollAreaWidgetContents_dogs.setLayout(self.verticalLayout_dog)
 
     def accuracyBtnClicked(self):
+        self.same_batch = False
         self.result_object.setIncorrectList(self.incorrect_classifications_list)
 
         self.pushButton_collapseAccuracy.hide()
@@ -728,9 +892,10 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.label_value_incorrect_cats.setText(str(self.result_object.incorrect_cats()))
         self.label_value_incorrect_dogs.setText(str(self.result_object.incorrect_dogs()))
         self.label_value_incorrect_total.setText(str(self.result_object.incorrect_total()))
-        self.label_value_accuracy.setText(str(self.result_object.accuracy())+"%")
+        self.label_value_accuracy.setText(str(self.result_object.accuracy()) + "%")
 
-        self.label_eve.setPixmap(QPixmap(evestr.getPose(evestr.EVE_THINKING if self.result_object.accuracy() < 100 else evestr.EVE_CELEBRATING)))
+        self.label_eve.setPixmap(QPixmap(
+            evestr.getPose(evestr.EVE_THINKING if self.result_object.accuracy() < 100 else evestr.EVE_CELEBRATING)))
         self.setDialogue("I will try to do better next time.." if self.result_object.accuracy() < 100 else "Yay!!")
 
     def saveResultClicked(self):
@@ -738,10 +903,13 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.setDialogue("Result Saved!")
 
     def thankYouEveClicked(self):
+
         self.collapse_results_anim_grp.start()
+
         def lastDialogue():
             self.label_eve.setPixmap(QPixmap(evestr.getPose(evestr.EVE_HANDFOLD)))
             self.setDialogue("You can select images or ask me questions ^-^")
+
         self.collapse_results_anim_grp.finished.connect(lastDialogue)
         self.reset()
 
@@ -774,13 +942,12 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.scrollAreaWidgetContents_dogs = QWidget()
         self.scrollAreaWidgetContents_dogs.setGeometry(QRect(0, 0, 667, 184))
         self.scrollAreaWidgetContents_dogs.setStyleSheet("QWidget#scrollAreaWidgetContents_dogs{\n"
-"border-top-left-radius: 0px;\n"
-"border-top-right-radius: 0px;\n"
-"background-color: rgba(255, 255, 255,0.7);\n"
-"}")
+                                                         "border-top-left-radius: 0px;\n"
+                                                         "border-top-right-radius: 0px;\n"
+                                                         "background-color: rgba(255, 255, 255,0.7);\n"
+                                                         "}")
         self.scrollAreaWidgetContents_dogs.setObjectName("scrollAreaWidgetContents_dogs")
         self.scrollArea_dogs.setWidget(self.scrollAreaWidgetContents_dogs)
-
 
     def insertInVLayout(self, vlayout: QVBoxLayout, label: QLabel):
         rows: list[QHBoxLayout] = vlayout.children()  # all the rows in the grid
@@ -834,6 +1001,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         else:
             event.ignore()
 
+
 def getPropertyAnimation(target, property_name, duration, start_value, end_value,
                          easing_curve: QEasingCurve.Type = QEasingCurve.Type.Linear):
     prop_anim = QPropertyAnimation(target, property_name)
@@ -859,6 +1027,7 @@ def saveLastFolderOpened(folder_path: str):
     with open(evestr.PREFERENCES_PATH, 'w') as sf:
         sf.write(folder_path + "\n")
 
+
 def getLastFolderOpened():
     folderPath = evestr.CWD
     if os.path.exists(evestr.PREFERENCES_PATH):
@@ -866,8 +1035,13 @@ def getLastFolderOpened():
             folderPath = sf.readline()
     return folderPath
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
+    # Get a list of all image files in the folder
+    folder_path = "M:\Mk_Coding\lang_Python\Projects\eve_extras\Test_Images\dataset\\test_set\Mixed"
+    image_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path)]
+
+    # Randomly select 100 images from the list
     app = QApplication(sys.argv)  # Initializing the QApp
     # splash_pixmap = QPixmap("cats.jpg")
     # splash = QSplashScreen(splash_pixmap)
