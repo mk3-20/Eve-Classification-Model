@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1838</width>
+    <width>1743</width>
     <height>552</height>
    </rect>
   </property>
@@ -786,7 +786,7 @@ QPushButton:pressed{
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_collapseAccuracy">
+   <widget class="QPushButton" name="pushButton_collapseFrame">
     <property name="geometry">
      <rect>
       <x>346</x>
@@ -1901,6 +1901,646 @@ QPushButton:pressed{
      </item>
     </layout>
    </widget>
+   <widget class="QFrame" name="frame_credits">
+    <property name="geometry">
+     <rect>
+      <x>1062</x>
+      <y>-3</y>
+      <width>681</width>
+      <height>558</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#frame_credits{
+background-color: rgb(162, 146, 255);
+border-radius: 15px;
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_8">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>7</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>7</number>
+     </property>
+     <property name="bottomMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_credits">
+       <property name="minimumSize">
+        <size>
+         <width>667</width>
+         <height>56</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>667</width>
+         <height>56</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Gill Sans MT Condensed</family>
+         <pointsize>27</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius:0px;
+border-top-left-radius:15px;
+background-color: rgba(255, 255, 255,0.7);
+color: rgb(70, 70, 70);</string>
+       </property>
+       <property name="text">
+        <string>Credits</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_inside_credits">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>423</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 1);
+border-bottom-left-radius:15px;
+border-top-left-radius:0px;
+border-top-right-radius:0px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <property name="topMargin">
+         <number>71</number>
+        </property>
+        <property name="bottomMargin">
+         <number>66</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_17">
+          <item>
+           <spacer name="horizontalSpacer_22">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="maximumSize">
+             <size>
+              <width>192</width>
+              <height>63</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Freestyle Script</family>
+              <pointsize>32</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Team ADAM</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_23">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>32</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <spacer name="horizontalSpacer_20">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout">
+            <property name="labelAlignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="horizontalSpacing">
+             <number>46</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>40</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="credit_post1">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Ui/Ux Designer: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="credit_name1">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Ayushman Rawat</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="credit_post2">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Deep Learning Developer:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="credit_name2">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Dhruv Neelesh Gupta</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="credit_post3">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Content Writer:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="credit_name3">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Aman Shrivastava</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="credit_post4">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>GUI Developer &amp; Tester:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="credit_name4">
+              <property name="font">
+               <font>
+                <family>Gill Sans MT</family>
+                <pointsize>13</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Mukund Kukreja</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_21">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="frame_askEve">
+    <property name="geometry">
+     <rect>
+      <x>1062</x>
+      <y>-3</y>
+      <width>681</width>
+      <height>558</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>681</width>
+      <height>558</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame#frame_askEve{
+border-radius: 15px;
+background-color: rgb(238, 48, 255);
+
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+}</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_10">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>7</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>7</number>
+     </property>
+     <property name="bottomMargin">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_askEve">
+       <property name="minimumSize">
+        <size>
+         <width>667</width>
+         <height>56</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>667</width>
+         <height>56</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Gill Sans MT Condensed</family>
+         <pointsize>27</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-radius: 0px;
+border-top-left-radius:15px;
+background-color: rgba(255, 255, 255,0.7);
+color: rgb(70, 70, 70);</string>
+       </property>
+       <property name="text">
+        <string> Ask Eve </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_inside_askEve">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>423</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 1);
+border-bottom-left-radius:15px;
+border-top-left-radius:0px;
+border-top-right-radius:0px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <widget class="QScrollArea" name="scrollArea_askEve">
+          <property name="styleSheet">
+           <string notr="true">QScrollBar:vertical {
+            border: 0px;
+            background: rgb(255, 229, 255);
+            width:11px;    
+            margin: 0px 3px 0px 3px;
+        }
+QScrollBar::handle:vertical {         
+            background-color:rgb(255, 85, 255);
+        }
+QScrollBar::add-line:vertical {       
+            height: 0px;
+            subcontrol-position: bottom;
+            subcontrol-origin: margin;
+        }
+QScrollBar::sub-line:vertical {
+            height: 0 px;
+            subcontrol-position: top;
+            subcontrol-origin: margin;
+        }
+QScrollBar::handle::pressed
+{
+background : rgb(255, 76, 217);
+}</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_askEve">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>649</width>
+             <height>466</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_13">
+            <property name="spacing">
+             <number>16</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="1,0,1">
+              <item>
+               <spacer name="horizontalSpacer_24">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_11">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="pushButton_quesObjective">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>609</width>
+                    <height>41</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>609</width>
+                    <height>41</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Segoe UI Variable Small Semibol</family>
+                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+	border-color: rgba(0, 0 ,0,0.6);
+	border-radius: 10px;
+	background-color: rgb(255, 229, 255);
+	text-align:left;
+	border-top-right-radius:0px;
+	border-bottom-left-radius:0px;
+	border: 2px solid;
+	border-top: 0px solid;
+	border-left: 0px solid;
+}
+
+QPushButton:hover{
+	background-color:rgb(255, 197, 248);
+}
+QPushButton:pressed{
+	border: 3px solid;
+	border-bottom: 0px;
+	border-right: 1px solid;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>   Q. What's your objective?</string>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>drop_down_arrow.png</normaloff>drop_down_arrow.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>30</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_ansObjective">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>609</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>609</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>8514oem</family>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">	border: 3px solid;
+	border-top: 0px solid;
+	border-left: 1px solid;
+padding:10px;</string>
+                  </property>
+                  <property name="text">
+                   <string>provide a user-friendly graphical interface for the classifications of cats and dogs ^_^</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                  <property name="margin">
+                   <number>7</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_25">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
    <zorder>label_bg</zorder>
    <zorder>label_inputImages</zorder>
    <zorder>pushButton_importPics</zorder>
@@ -1918,7 +2558,9 @@ QPushButton:pressed{
    <zorder>pushButton_slowDown</zorder>
    <zorder>pushButton_speedUp</zorder>
    <zorder>frame_results</zorder>
-   <zorder>pushButton_collapseAccuracy</zorder>
+   <zorder>pushButton_collapseFrame</zorder>
+   <zorder>frame_credits</zorder>
+   <zorder>frame_askEve</zorder>
    <zorder>label_eve</zorder>
    <zorder>label_speech_bubble</zorder>
    <zorder>label_dialogue</zorder>

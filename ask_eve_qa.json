@@ -1,0 +1,17 @@
+{
+  "quesTraining": [
+    "How were you trained?",
+    "I was trained...",
+    "...through the process of [ REMAINING ANSWER ]"
+  ],
+  "quesAccuracy": [
+    "What's the accuracy of your DL Model?",
+    "My accuracy is ...",
+    "...about 87%"
+  ],
+  "quesOtherClassification": [
+    "Can you identify anything other than just cats and dogs?",
+    "Actually...",
+    "...for the time being, I cannot do that.. But maybe in future :]"
+  ]
+}

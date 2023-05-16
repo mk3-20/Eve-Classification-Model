@@ -406,16 +406,16 @@ class Ui_MainWindow(object):
 "")
         self.pushButton_resetImports.setText("")
         self.pushButton_resetImports.setObjectName("pushButton_resetImports")
-        self.pushButton_collapseAccuracy = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.pushButton_collapseAccuracy.setGeometry(QtCore.QRect(346, 10, 31, 31))
+        self.pushButton_collapseFrame = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_collapseFrame.setGeometry(QtCore.QRect(346, 10, 31, 31))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Black")
         font.setPointSize(14)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.pushButton_collapseAccuracy.setFont(font)
-        self.pushButton_collapseAccuracy.setStyleSheet("QPushButton {\n"
+        self.pushButton_collapseFrame.setFont(font)
+        self.pushButton_collapseFrame.setStyleSheet("QPushButton {\n"
 "border: 2px solid;\n"
 "border-color: rgba(0,0,0,0.4);\n"
 "background-color: rgba(170, 255, 255,0.2);\n"
@@ -434,8 +434,8 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "")
-        self.pushButton_collapseAccuracy.setText("")
-        self.pushButton_collapseAccuracy.setObjectName("pushButton_collapseAccuracy")
+        self.pushButton_collapseFrame.setText("")
+        self.pushButton_collapseFrame.setObjectName("pushButton_collapseFrame")
         self.pushButton_expandAccuracy = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_expandAccuracy.setGeometry(QtCore.QRect(1020, 10, 31, 31))
         font = QtGui.QFont()
@@ -926,6 +926,291 @@ class Ui_MainWindow(object):
         spacerItem26 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_15.addItem(spacerItem26)
         self.verticalLayout_2.addLayout(self.horizontalLayout_15)
+        self.frame_credits = QtWidgets.QFrame(parent=self.centralwidget)
+        self.frame_credits.setGeometry(QtCore.QRect(1062, -3, 681, 558))
+        self.frame_credits.setMinimumSize(QtCore.QSize(681, 558))
+        self.frame_credits.setMaximumSize(QtCore.QSize(681, 558))
+        self.frame_credits.setStyleSheet("QFrame#frame_credits{\n"
+"background-color: rgb(162, 146, 255);\n"
+"border-radius: 15px;\n"
+"border-bottom-right-radius: 0px;\n"
+"border-top-right-radius: 0px;\n"
+"}")
+        self.frame_credits.setObjectName("frame_credits")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.frame_credits)
+        self.verticalLayout_8.setContentsMargins(7, 10, 7, 8)
+        self.verticalLayout_8.setSpacing(0)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.label_credits = QtWidgets.QLabel(parent=self.frame_credits)
+        self.label_credits.setMinimumSize(QtCore.QSize(667, 56))
+        self.label_credits.setMaximumSize(QtCore.QSize(667, 56))
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT Condensed")
+        font.setPointSize(27)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_credits.setFont(font)
+        self.label_credits.setStyleSheet("border-radius:0px;\n"
+"border-top-left-radius:15px;\n"
+"background-color: rgba(255, 255, 255,0.7);\n"
+"color: rgb(70, 70, 70);")
+        self.label_credits.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_credits.setObjectName("label_credits")
+        self.verticalLayout_8.addWidget(self.label_credits)
+        self.frame_inside_credits = QtWidgets.QFrame(parent=self.frame_credits)
+        self.frame_inside_credits.setMinimumSize(QtCore.QSize(0, 423))
+        self.frame_inside_credits.setStyleSheet("background-color: rgba(255, 255, 255, 1);\n"
+"border-bottom-left-radius:15px;\n"
+"border-top-left-radius:0px;\n"
+"border-top-right-radius:0px;")
+        self.frame_inside_credits.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_inside_credits.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_inside_credits.setObjectName("frame_inside_credits")
+        self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.frame_inside_credits)
+        self.verticalLayout_9.setContentsMargins(-1, 71, -1, 66)
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.horizontalLayout_17 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_17.setObjectName("horizontalLayout_17")
+        spacerItem27 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_17.addItem(spacerItem27)
+        self.label = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        self.label.setMaximumSize(QtCore.QSize(192, 63))
+        font = QtGui.QFont()
+        font.setFamily("Freestyle Script")
+        font.setPointSize(32)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label.setObjectName("label")
+        self.horizontalLayout_17.addWidget(self.label)
+        spacerItem28 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_17.addItem(spacerItem28)
+        self.verticalLayout_9.addLayout(self.horizontalLayout_17)
+        spacerItem29 = QtWidgets.QSpacerItem(20, 32, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed)
+        self.verticalLayout_9.addItem(spacerItem29)
+        self.horizontalLayout_16 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+        spacerItem30 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_16.addItem(spacerItem30)
+        self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setLabelAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
+        self.formLayout.setHorizontalSpacing(46)
+        self.formLayout.setVerticalSpacing(40)
+        self.formLayout.setObjectName("formLayout")
+        self.credit_post1 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_post1.setFont(font)
+        self.credit_post1.setObjectName("credit_post1")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.credit_post1)
+        self.credit_name1 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_name1.setFont(font)
+        self.credit_name1.setObjectName("credit_name1")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.credit_name1)
+        self.credit_post2 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_post2.setFont(font)
+        self.credit_post2.setObjectName("credit_post2")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.ItemRole.LabelRole, self.credit_post2)
+        self.credit_name2 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_name2.setFont(font)
+        self.credit_name2.setObjectName("credit_name2")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.ItemRole.FieldRole, self.credit_name2)
+        self.credit_post3 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_post3.setFont(font)
+        self.credit_post3.setObjectName("credit_post3")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.ItemRole.LabelRole, self.credit_post3)
+        self.credit_name3 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_name3.setFont(font)
+        self.credit_name3.setObjectName("credit_name3")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.ItemRole.FieldRole, self.credit_name3)
+        self.credit_post4 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_post4.setFont(font)
+        self.credit_post4.setObjectName("credit_post4")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.ItemRole.LabelRole, self.credit_post4)
+        self.credit_name4 = QtWidgets.QLabel(parent=self.frame_inside_credits)
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT")
+        font.setPointSize(13)
+        self.credit_name4.setFont(font)
+        self.credit_name4.setObjectName("credit_name4")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.ItemRole.FieldRole, self.credit_name4)
+        self.horizontalLayout_16.addLayout(self.formLayout)
+        spacerItem31 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_16.addItem(spacerItem31)
+        self.verticalLayout_9.addLayout(self.horizontalLayout_16)
+        self.verticalLayout_8.addWidget(self.frame_inside_credits)
+        self.frame_askEve = QtWidgets.QFrame(parent=self.centralwidget)
+        self.frame_askEve.setGeometry(QtCore.QRect(1062, -3, 681, 558))
+        self.frame_askEve.setMinimumSize(QtCore.QSize(681, 558))
+        self.frame_askEve.setMaximumSize(QtCore.QSize(681, 558))
+        self.frame_askEve.setStyleSheet("QFrame#frame_askEve{\n"
+"border-radius: 15px;\n"
+"background-color: rgb(238, 48, 255);\n"
+"\n"
+"border-bottom-right-radius: 0px;\n"
+"border-top-right-radius: 0px;\n"
+"}")
+        self.frame_askEve.setObjectName("frame_askEve")
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout(self.frame_askEve)
+        self.verticalLayout_10.setContentsMargins(7, 10, 7, 8)
+        self.verticalLayout_10.setSpacing(0)
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.label_askEve = QtWidgets.QLabel(parent=self.frame_askEve)
+        self.label_askEve.setMinimumSize(QtCore.QSize(667, 56))
+        self.label_askEve.setMaximumSize(QtCore.QSize(667, 56))
+        font = QtGui.QFont()
+        font.setFamily("Gill Sans MT Condensed")
+        font.setPointSize(27)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_askEve.setFont(font)
+        self.label_askEve.setStyleSheet("border-radius: 0px;\n"
+"border-top-left-radius:15px;\n"
+"background-color: rgba(255, 255, 255,0.7);\n"
+"color: rgb(70, 70, 70);")
+        self.label_askEve.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_askEve.setObjectName("label_askEve")
+        self.verticalLayout_10.addWidget(self.label_askEve)
+        self.frame_inside_askEve = QtWidgets.QFrame(parent=self.frame_askEve)
+        self.frame_inside_askEve.setMinimumSize(QtCore.QSize(0, 423))
+        self.frame_inside_askEve.setStyleSheet("background-color: rgba(255, 255, 255, 1);\n"
+"border-bottom-left-radius:15px;\n"
+"border-top-left-radius:0px;\n"
+"border-top-right-radius:0px;")
+        self.frame_inside_askEve.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_inside_askEve.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_inside_askEve.setObjectName("frame_inside_askEve")
+        self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.frame_inside_askEve)
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.scrollArea_askEve = QtWidgets.QScrollArea(parent=self.frame_inside_askEve)
+        self.scrollArea_askEve.setStyleSheet("QScrollBar:vertical {\n"
+"            border: 0px;\n"
+"            background: rgb(255, 229, 255);\n"
+"            width:11px;    \n"
+"            margin: 0px 3px 0px 3px;\n"
+"        }\n"
+"QScrollBar::handle:vertical {         \n"
+"            background-color:rgb(255, 85, 255);\n"
+"        }\n"
+"QScrollBar::add-line:vertical {       \n"
+"            height: 0px;\n"
+"            subcontrol-position: bottom;\n"
+"            subcontrol-origin: margin;\n"
+"        }\n"
+"QScrollBar::sub-line:vertical {\n"
+"            height: 0 px;\n"
+"            subcontrol-position: top;\n"
+"            subcontrol-origin: margin;\n"
+"        }\n"
+"QScrollBar::handle::pressed\n"
+"{\n"
+"background : rgb(255, 76, 217);\n"
+"}")
+        self.scrollArea_askEve.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea_askEve.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.scrollArea_askEve.setWidgetResizable(True)
+        self.scrollArea_askEve.setObjectName("scrollArea_askEve")
+        self.scrollAreaWidgetContents_askEve = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_askEve.setGeometry(QtCore.QRect(0, 0, 649, 466))
+        self.scrollAreaWidgetContents_askEve.setObjectName("scrollAreaWidgetContents_askEve")
+        self.verticalLayout_13 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_askEve)
+        self.verticalLayout_13.setSpacing(16)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.horizontalLayout_18 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
+        spacerItem32 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_18.addItem(spacerItem32)
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_11.setSpacing(0)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.pushButton_quesObjective = QtWidgets.QPushButton(parent=self.scrollAreaWidgetContents_askEve)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_quesObjective.sizePolicy().hasHeightForWidth())
+        self.pushButton_quesObjective.setSizePolicy(sizePolicy)
+        self.pushButton_quesObjective.setMinimumSize(QtCore.QSize(609, 41))
+        self.pushButton_quesObjective.setMaximumSize(QtCore.QSize(609, 41))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Variable Small Semibol")
+        font.setPointSize(11)
+        font.setBold(False)
+        font.setWeight(50)
+        self.pushButton_quesObjective.setFont(font)
+        self.pushButton_quesObjective.setLayoutDirection(QtCore.Qt.LayoutDirection.RightToLeft)
+        self.pushButton_quesObjective.setStyleSheet("QPushButton {\n"
+"    border-color: rgba(0, 0 ,0,0.6);\n"
+"    border-radius: 10px;\n"
+"    background-color: rgb(255, 229, 255);\n"
+"    text-align:left;\n"
+"    border-top-right-radius:0px;\n"
+"    border-bottom-left-radius:0px;\n"
+"    border: 2px solid;\n"
+"    border-top: 0px solid;\n"
+"    border-left: 0px solid;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"    background-color:rgb(255, 197, 248);\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    border: 3px solid;\n"
+"    border-bottom: 0px;\n"
+"    border-right: 1px solid;\n"
+"}")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("M:\\Mk_Coding\\lang_Python\\Projects\\Eve-Classification-Model/Ui\\drop_down_arrow.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.pushButton_quesObjective.setIcon(icon2)
+        self.pushButton_quesObjective.setIconSize(QtCore.QSize(30, 30))
+        self.pushButton_quesObjective.setObjectName("pushButton_quesObjective")
+        self.verticalLayout_11.addWidget(self.pushButton_quesObjective)
+        self.label_ansObjective = QtWidgets.QLabel(parent=self.scrollAreaWidgetContents_askEve)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_ansObjective.sizePolicy().hasHeightForWidth())
+        self.label_ansObjective.setSizePolicy(sizePolicy)
+        self.label_ansObjective.setMinimumSize(QtCore.QSize(609, 0))
+        self.label_ansObjective.setMaximumSize(QtCore.QSize(609, 16777215))
+        font = QtGui.QFont()
+        font.setFamily("8514oem")
+        font.setPointSize(10)
+        self.label_ansObjective.setFont(font)
+        self.label_ansObjective.setStyleSheet("    border: 3px solid;\n"
+"    border-top: 0px solid;\n"
+"    border-left: 1px solid;\n"
+"padding:10px;")
+        self.label_ansObjective.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.label_ansObjective.setWordWrap(True)
+        self.label_ansObjective.setObjectName("label_ansObjective")
+        self.verticalLayout_11.addWidget(self.label_ansObjective)
+        self.horizontalLayout_18.addLayout(self.verticalLayout_11)
+        spacerItem33 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_18.addItem(spacerItem33)
+        self.horizontalLayout_18.setStretch(0, 1)
+        self.horizontalLayout_18.setStretch(2, 1)
+        self.verticalLayout_13.addLayout(self.horizontalLayout_18)
+        self.scrollArea_askEve.setWidget(self.scrollAreaWidgetContents_askEve)
+        self.verticalLayout_12.addWidget(self.scrollArea_askEve)
+        self.verticalLayout_10.addWidget(self.frame_inside_askEve)
         self.label_bg.raise_()
         self.label_inputImages.raise_()
         self.pushButton_importPics.raise_()
@@ -943,7 +1228,9 @@ class Ui_MainWindow(object):
         self.pushButton_slowDown.raise_()
         self.pushButton_speedUp.raise_()
         self.frame_results.raise_()
-        self.pushButton_collapseAccuracy.raise_()
+        self.pushButton_collapseFrame.raise_()
+        self.frame_credits.raise_()
+        self.frame_askEve.raise_()
         self.label_eve.raise_()
         self.label_speech_bubble.raise_()
         self.label_dialogue.raise_()
@@ -969,7 +1256,7 @@ class Ui_MainWindow(object):
         self.pushButton_accuracy.setText(_translate("MainWindow", " All classifications are correct, Eve! :D "))
         self.pushButton_importMore.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"center\">import more images</p></body></html>"))
         self.pushButton_resetImports.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"center\">reset input images</p></body></html>"))
-        self.pushButton_collapseAccuracy.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"center\">collapse</p></body></html>"))
+        self.pushButton_collapseFrame.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"center\">collapse</p></body></html>"))
         self.pushButton_expandAccuracy.setToolTip(_translate("MainWindow", "<html><head/><body><p align=\"center\">expand</p></body></html>"))
         self.label_results.setText(_translate("MainWindow", "Results"))
         self.label_total_images.setText(_translate("MainWindow", "Total Images:"))
@@ -992,6 +1279,19 @@ class Ui_MainWindow(object):
         self.label_value_accuracy.setText(_translate("MainWindow", "00.0%"))
         self.pushButton_save_output.setText(_translate("MainWindow", "Save Output"))
         self.pushButton_thankyou.setText(_translate("MainWindow", "Thank You Eve :)"))
+        self.label_credits.setText(_translate("MainWindow", "Credits"))
+        self.label.setText(_translate("MainWindow", "Team ADAM"))
+        self.credit_post1.setText(_translate("MainWindow", "Ui/Ux Designer: "))
+        self.credit_name1.setText(_translate("MainWindow", "Ayushman Rawat"))
+        self.credit_post2.setText(_translate("MainWindow", "Deep Learning Developer:"))
+        self.credit_name2.setText(_translate("MainWindow", "Dhruv Neelesh Gupta"))
+        self.credit_post3.setText(_translate("MainWindow", "Content Writer:"))
+        self.credit_name3.setText(_translate("MainWindow", "Aman Shrivastava"))
+        self.credit_post4.setText(_translate("MainWindow", "GUI Developer & Tester:"))
+        self.credit_name4.setText(_translate("MainWindow", "Mukund Kukreja"))
+        self.label_askEve.setText(_translate("MainWindow", " Ask Eve "))
+        self.pushButton_quesObjective.setText(_translate("MainWindow", "   Q. What\'s your objective?"))
+        self.label_ansObjective.setText(_translate("MainWindow", "provide a user-friendly graphical interface for the classifications of cats and dogs ^_^"))
 
 
 if __name__ == "__main__":
