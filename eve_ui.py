@@ -13,7 +13,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.WindowModality.NonModal)
-        MainWindow.resize(1838, 552)
+        MainWindow.resize(1743, 552)
         MainWindow.setStyleSheet("border-radius:10px;\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0.046, x2:1, y2:0.972, stop:0 rgba(229, 253, 255, 255), stop:0.994318 rgba(131, 250, 255, 255));\n"
 "background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y2:0.813, stop:0 rgba(255, 255, 255, 226), stop:0.994318 rgba(199, 199, 199, 197));\n"

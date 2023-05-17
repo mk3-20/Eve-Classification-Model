@@ -1994,7 +1994,8 @@ color: rgb(70, 70, 70);</string>
         <string notr="true">background-color: rgba(255, 255, 255, 1);
 border-bottom-left-radius:15px;
 border-top-left-radius:0px;
-border-top-right-radius:0px;</string>
+border-top-right-radius:0px;
+</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -2232,7 +2233,7 @@ border-top-right-radius:0px;</string>
    <widget class="QFrame" name="frame_askEve">
     <property name="geometry">
      <rect>
-      <x>1062</x>
+      <x>380</x>
       <y>-3</y>
       <width>681</width>
       <height>558</height>

@@ -323,6 +323,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         )
 
         def getSampleInput():
+            if not self.pushButton_importPics.isVisible() or not self.pushButton_importPics.isEnabled():
+                return
             folder_path, ok = QInputDialog.getText(self, 'Folder Path', 'Enter Images Folder Path: ',
                                                    text=prev_folder_path)
             if ok:
@@ -548,12 +550,19 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.threadpool = QThreadPool()
         self.animation_running = False
         self.current_img_index = 0
+        self.last_ques_opened = None
         self.label_ansObjective.hide()
         self.qa_btn_label_dict:dict[QPushButton,tuple[QLabel,str]] = {self.pushButton_quesObjective:(self.label_ansObjective, "My Objective is to...")}
         self.setAskEveQA()
+        self.pushButton_askEve.hide()
+        self.pushButton_credits.hide()
+        self.pushButton_importPics.hide()
 
     def intro(self):
         self.setDialogue("I'm Eve :D")
+        self.pushButton_askEve.show()
+        self.pushButton_credits.show()
+        self.pushButton_importPics.show()
 
     def creditsClicked(self):
         self.setPose(evestr.EVE_POINTING)
@@ -566,8 +575,6 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.setDialogue("Here are some frequently asked questions...")
         self.expand_askEve_anim_grp.start()
         self.current_frame = FrameType.ASKEVE
-
-
 
     def setAskEveQA(self):
         for ques_key in ask_eve_qa_dict:
@@ -641,18 +648,25 @@ class MainScreen(QMainWindow, Ui_MainWindow):
 
     def questionClicked(self):
 
-        ques_btn = self.sender()
+        ques_btn:QPushButton = self.sender()
         ans_label:QLabel = self.qa_btn_label_dict[ques_btn][0]
         ans_intro:str = self.qa_btn_label_dict[ques_btn][1]
         if ans_label.isVisible():
             self.setPose(evestr.EVE_THINKING)
             self.setDialogue("Wanna ask more?")
             ques_btn.setStyleSheet(evestr.SS_QUES_OFF)
+            ques_btn.setIcon(QIcon(evestr.DROP_DOWN_ICON))
             ans_label.hide()
         else:
+            if self.last_ques_opened is not None and self.last_ques_opened!=ques_btn:
+                self.last_ques_opened.click()
             self.setPose(evestr.EVE_EXPLAINING)
             self.setDialogue(ans_intro)
             ques_btn.setStyleSheet(evestr.SS_QUES_ON)
+            ques_btn.setIconSize(QSize(30,30))
+            ques_btn.setIcon(QIcon(evestr.DROP_UP_ICON))
+            self.last_ques_opened = ques_btn
+
             # ans_label.setFixedHeight(evestr.ANSWER_HEIGHT)
             # ans_label.setSizePolicy(QSizePolicy.Policy.Fixed,QSizePolicy.Policy.Expanding)
             ans_label.adjustSize()
