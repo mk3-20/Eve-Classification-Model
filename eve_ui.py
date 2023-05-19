@@ -26,9 +26,10 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label_bg = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_bg.setGeometry(QtCore.QRect(0, 0, 1060, 552))
+        self.label_bg.setGeometry(QtCore.QRect(0, 0, 1062, 552))
         self.label_bg.setText("")
         self.label_bg.setPixmap(QtGui.QPixmap("M:\\Mk_Coding\\lang_Python\\Projects\\Eve-Classification-Model/Ui\\bg_img.png"))
+        self.label_bg.setScaledContents(True)
         self.label_bg.setObjectName("label_bg")
         self.label_inputImages = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_inputImages.setGeometry(QtCore.QRect(353, 130, 331, 211))
@@ -266,7 +267,10 @@ class Ui_MainWindow(object):
         self.scrollArea_cats.setStyleSheet("QScrollArea{\n"
 "border-top-left-radius: 0px;\n"
 "border-top-right-radius: 0px;\n"
-"}")
+"}\n"
+"")
+        self.scrollArea_cats.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.scrollArea_cats.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea_cats.setWidgetResizable(True)
         self.scrollArea_cats.setObjectName("scrollArea_cats")
         self.scrollAreaWidgetContents_cats = QtWidgets.QWidget()
@@ -298,6 +302,7 @@ class Ui_MainWindow(object):
 "border-top-left-radius: 0px;\n"
 "border-top-right-radius: 0px;\n"
 "}")
+        self.scrollArea_dogs.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scrollArea_dogs.setWidgetResizable(True)
         self.scrollArea_dogs.setObjectName("scrollArea_dogs")
         self.scrollAreaWidgetContents_dogs = QtWidgets.QWidget()
@@ -962,7 +967,8 @@ class Ui_MainWindow(object):
         self.frame_inside_credits.setStyleSheet("background-color: rgba(255, 255, 255, 1);\n"
 "border-bottom-left-radius:15px;\n"
 "border-top-left-radius:0px;\n"
-"border-top-right-radius:0px;")
+"border-top-right-radius:0px;\n"
+"")
         self.frame_inside_credits.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_inside_credits.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_inside_credits.setObjectName("frame_inside_credits")
@@ -1291,7 +1297,7 @@ class Ui_MainWindow(object):
         self.credit_name4.setText(_translate("MainWindow", "Mukund Kukreja"))
         self.label_askEve.setText(_translate("MainWindow", " Ask Eve "))
         self.pushButton_quesObjective.setText(_translate("MainWindow", "   Q. What\'s your objective?"))
-        self.label_ansObjective.setText(_translate("MainWindow", "provide a user-friendly graphical interface for the classifications of cats and dogs ^_^"))
+        self.label_ansObjective.setText(_translate("MainWindow", "...provide a user-friendly graphical interface for the classifications of cats and dogs ^_^"))
 
 
 if __name__ == "__main__":

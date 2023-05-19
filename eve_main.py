@@ -32,23 +32,22 @@ import json
 # IMPORTS
 import os
 import shutil
-import sys
+import sys, time
 import timeit
 import traceback
 from datetime import datetime
 from enum import Enum
 from random import sample
 
-import cv2
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 from PIL import Image
 from PyQt6.QtCore import QSize, Qt, QPoint, QPropertyAnimation, QEasingCurve, QParallelAnimationGroup, \
     QSequentialAnimationGroup, QTimer, QRect, QRunnable, pyqtSignal, QObject, pyqtSlot, QThreadPool
-from PyQt6.QtGui import QPixmap, QMouseEvent, QFont, QIcon, QShortcut, QKeySequence
+from PyQt6.QtGui import QPixmap, QMouseEvent, QFont, QIcon, QShortcut, QKeySequence, QMovie, QPainter
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QVBoxLayout, QHBoxLayout, QMessageBox, \
-    QPushButton, QWidget, QInputDialog, QSizePolicy, QSpacerItem
+    QPushButton, QWidget, QInputDialog, QSizePolicy, QSpacerItem, QSplashScreen
 from keras.preprocessing.image import ImageDataGenerator
 from numpy import nan
 
@@ -135,10 +134,10 @@ class Result:
         self.__correct_cats = temp_cat_count - self.__incorrect_cats
         self.__correct_dogs = temp_dog_count - self.__incorrect_dogs
 
-        if (self.__cats_count):
+        if self.__cats_count:
             self.__cats_list = list(
                 self.__classified_dataframe.loc[self.__classified_dataframe['Category'] == 0]['Filename'].values)
-        if (self.__dogs_count):
+        if self.__dogs_count:
             self.__dogs_list = list(
                 self.__classified_dataframe.loc[self.__classified_dataframe['Category'] == 1]['Filename'].values)
 
@@ -220,21 +219,21 @@ class Result:
 
 
 class WorkerSignals(QObject):
-    '''
+    """
     Defines the signals available from a running worker thread.
     Supported signals are:
         -> finished
             No data
 
         -> error
-            tuple (exctype, value, traceback.format_exc() )
+            tuple (exception_type, value, traceback.format_exc() )
 
         -> result
             object data returned from processing, anything
 
         -> progress
             int indicating % progress
-    '''
+    """
     finished = pyqtSignal()
     error = pyqtSignal(tuple)
     result = pyqtSignal(object)
@@ -242,7 +241,7 @@ class WorkerSignals(QObject):
 
 
 class Worker(QRunnable):
-    ''' Worker thread (Inherits from QRunnable) '''
+    """ Worker thread (Inherits from QRunnable) """
 
     def __init__(self, fn, *args, **kwargs):
         super(Worker, self).__init__()
@@ -259,10 +258,10 @@ class Worker(QRunnable):
     def run(self):
         try:
             result = self.fn(*self.args, **self.kwargs)
-        except:
+        except Exception:
             traceback.print_exc()
-            exctype, value = sys.exc_info()[:2]
-            self.signals.error.emit((exctype, value, traceback.format_exc()))
+            exception_type, value = sys.exc_info()[:2]
+            self.signals.error.emit((exception_type, value, traceback.format_exc()))
         else:
             self.signals.result.emit(result)  # Return the result of the processing
         finally:
@@ -293,14 +292,14 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             QPixmap(evestr.DOG_BASKET_IMG).scaled(basket_pixmap_size, Qt.AspectRatioMode.IgnoreAspectRatio,
                                                   Qt.TransformationMode.SmoothTransformation))
 
-        self.mainwindow_enlarge_animation = getPropertyAnimation(
-            target=self,
-            property_name=b'size',
-            duration=750,
-            start_value=QSize(0, 0),
-            end_value=QSize(1060, 552),
-        )
-        self.mainwindow_enlarge_animation.start()
+        # self.mainwindow_enlarge_animation = getPropertyAnimation(
+        #     target=self,
+        #     property_name=b'size',
+        #     duration=750,
+        #     start_value=QSize(0, 0),
+        #     end_value=QSize(1060, 552),
+        # )
+        # self.mainwindow_enlarge_animation.start()
 
         self.verticalLayout_dog = QVBoxLayout()
         self.verticalLayout_dog.addLayout(QHBoxLayout())
@@ -552,7 +551,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.current_img_index = 0
         self.last_ques_opened = None
         self.label_ansObjective.hide()
-        self.qa_btn_label_dict:dict[QPushButton,tuple[QLabel,str]] = {self.pushButton_quesObjective:(self.label_ansObjective, "My Objective is to...")}
+        self.qa_btn_label_dict: dict[QPushButton, tuple[QLabel, str]] = {
+            self.pushButton_quesObjective: (self.label_ansObjective, "My Objective is to...")}
         self.setAskEveQA()
         self.pushButton_askEve.hide()
         self.pushButton_credits.hide()
@@ -583,7 +583,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             ans = ask_eve_qa_dict[ques_key][2]
             horizontalLayout = QHBoxLayout()
             horizontalLayout.setObjectName(f"horizontalLayout_{ques_key}")
-            spacerItemLeft = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding,QSizePolicy.Policy.Minimum)
+            spacerItemLeft = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
             horizontalLayout.addItem(spacerItemLeft)
 
             verticalLayout = QVBoxLayout()
@@ -607,7 +607,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             pushButton_ques.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
             pushButton_ques.setStyleSheet(evestr.SS_QUES_OFF)
             drop_down_icon = QIcon()
-            drop_down_icon.addPixmap(QPixmap(evestr.DROP_DOWN_ICON),QIcon.Mode.Normal, QIcon.State.Off)
+            drop_down_icon.addPixmap(QPixmap(evestr.DROP_DOWN_ICON), QIcon.Mode.Normal, QIcon.State.Off)
             pushButton_ques.setIcon(drop_down_icon)
             pushButton_ques.setIconSize(QSize(30, 30))
             pushButton_ques.setObjectName(f"pushButton_{ques_key}")
@@ -626,7 +626,8 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             font.setFamily("8514oem")
             font.setPointSize(10)
             label_ans.setFont(font)
-            label_ans.setStyleSheet("border: 3px solid;\nborder-top: 0px solid;\nborder-left: 1px solid;\npadding:10px;")
+            label_ans.setStyleSheet(
+                "border: 3px solid;\nborder-top: 0px solid;\nborder-left: 1px solid;\npadding:10px;")
             label_ans.setAlignment(Qt.AlignmentFlag.AlignCenter)
             label_ans.setWordWrap(True)
             label_ans.setObjectName(f"label_ans{ques_key[4:]}")
@@ -641,29 +642,30 @@ class MainScreen(QMainWindow, Ui_MainWindow):
             self.verticalLayout_13.addLayout(horizontalLayout)
             label_ans.hide()
             pushButton_ques.clicked.connect(self.questionClicked)
-            self.qa_btn_label_dict[pushButton_ques] = (label_ans,ans_intro)
-        spacerItemBottom = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum,QSizePolicy.Policy.Expanding)
+            self.qa_btn_label_dict[pushButton_ques] = (label_ans, ans_intro)
+        spacerItemBottom = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         self.verticalLayout_13.addItem(spacerItemBottom)
-        self.verticalLayout_13.setStretch(-1,2)
+        self.verticalLayout_13.setStretch(-1, 2)
 
     def questionClicked(self):
 
-        ques_btn:QPushButton = self.sender()
-        ans_label:QLabel = self.qa_btn_label_dict[ques_btn][0]
-        ans_intro:str = self.qa_btn_label_dict[ques_btn][1]
-        if ans_label.isVisible():
+        ques_btn: QPushButton = self.sender()
+        ans_label: QLabel = self.qa_btn_label_dict[ques_btn][0]
+        ans_intro: str = self.qa_btn_label_dict[ques_btn][1]
+        if ans_label.isVisible():  # ANSWER IS ALREADY OPEN
             self.setPose(evestr.EVE_THINKING)
             self.setDialogue("Wanna ask more?")
             ques_btn.setStyleSheet(evestr.SS_QUES_OFF)
             ques_btn.setIcon(QIcon(evestr.DROP_DOWN_ICON))
             ans_label.hide()
-        else:
-            if self.last_ques_opened is not None and self.last_ques_opened!=ques_btn:
+        else:  # HAVE TO OPEN THE ANSWER
+            if self.last_ques_opened is not None and self.last_ques_opened != ques_btn and \
+                    self.qa_btn_label_dict[self.last_ques_opened][0].isVisible():
                 self.last_ques_opened.click()
             self.setPose(evestr.EVE_EXPLAINING)
             self.setDialogue(ans_intro)
             ques_btn.setStyleSheet(evestr.SS_QUES_ON)
-            ques_btn.setIconSize(QSize(30,30))
+            ques_btn.setIconSize(QSize(30, 30))
             ques_btn.setIcon(QIcon(evestr.DROP_UP_ICON))
             self.last_ques_opened = ques_btn
 
@@ -1007,7 +1009,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.label_value_incorrect_total.setText(str(self.result_object.incorrect_total()))
         self.label_value_accuracy.setText(str(self.result_object.accuracy()) + "%")
 
-        self.setPose(evestr.EVE_THINKING if self.result_object.accuracy() < 100 else evestr.EVE_CELEBRATING)
+        self.setPose(evestr.EVE_HANDFOLD if self.result_object.accuracy() < 100 else evestr.EVE_CELEBRATING)
 
         self.setDialogue("I will try to do better next time.." if self.result_object.accuracy() < 100 else "Yay!!")
 
@@ -1021,7 +1023,7 @@ class MainScreen(QMainWindow, Ui_MainWindow):
         self.current_frame = FrameType.NONE
 
         def lastDialogue():
-            self.setPose(evestr.EVE_HANDFOLD)
+            self.setPose(evestr.EVE_THINKING)
             self.setDialogue("You can select images or ask me questions ^-^")
 
         self.collapse_results_anim_grp.finished.connect(lastDialogue)
@@ -1161,14 +1163,14 @@ def getPropertyAnimation(target, property_name, duration, start_value, end_value
     return prop_anim
 
 
-def getCopyOfAnimation(oldAnim: QPropertyAnimation):
+def getCopyOfAnimation(old_anim: QPropertyAnimation):
     newAnim = QPropertyAnimation()
-    newAnim.setTargetObject(oldAnim.targetObject())
-    newAnim.setDuration(oldAnim.duration())
-    newAnim.setPropertyName(oldAnim.propertyName())
-    newAnim.setEasingCurve(oldAnim.easingCurve())
-    newAnim.setStartValue(oldAnim.startValue())
-    newAnim.setEndValue(oldAnim.endValue())
+    newAnim.setTargetObject(old_anim.targetObject())
+    newAnim.setDuration(old_anim.duration())
+    newAnim.setPropertyName(old_anim.propertyName())
+    newAnim.setEasingCurve(old_anim.easingCurve())
+    newAnim.setStartValue(old_anim.startValue())
+    newAnim.setEndValue(old_anim.endValue())
     return newAnim
 
 
@@ -1181,11 +1183,49 @@ def savePreferences(key: str, path: str):
 def setSampleImageList(folder_path: str):
     global sample_image_files, prev_folder_path
     if folder_path != prev_folder_path:
-        sample_image_files = [os.path.join(folder_path, file) for file in os.listdir(folder_path)]  # Get a list of all image files in the folder
+        sample_image_files = [os.path.join(folder_path, file) for file in
+                              os.listdir(folder_path)]  # Get a list of all image files in the folder
     prev_folder_path = folder_path
 
 
+class MovieSplashScreen(QSplashScreen):
+
+    def __init__(self, movie:QMovie):
+        movie.jumpToFrame(0)
+        pixmap = QPixmap(1062,552)
+
+        QSplashScreen.__init__(self, pixmap)
+        self.movie = movie
+        self.movie.frameChanged.connect(self.repaint)
+
+        self.space_pressed = QShortcut(QKeySequence("Space"), self)
+        self.space_pressed.activated.connect(self.end)
+        # self.setEnabled(False)
+    def end(self):
+        self.movie.stop()
+
+    def mousePressEvent(self, a0: QMouseEvent) -> None:
+        pass
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        pixmap = self.movie.currentPixmap().scaled(1062, 552, Qt.AspectRatioMode.IgnoreAspectRatio)
+        self.setMask(pixmap.mask())
+        painter.drawPixmap(0, 0, pixmap)
+
+
 if __name__ == "__main__":
+
+    app = QApplication(sys.argv)  # Initializing the QApp
+    splash_movie = QMovie(evestr.SPLASH_GIF)
+    splash = MovieSplashScreen(splash_movie)
+    splash.show()
+    splash.movie.start()
+
+    # start = time.time() and time.time() < start + 8
+
+    while splash_movie.state() == QMovie.MovieState.Running:
+        app.processEvents()
+
     sample_image_files: list[str] = []
     prev_folder_path = ""
 
@@ -1194,8 +1234,8 @@ if __name__ == "__main__":
         evestr.KEY_IMAGE_FOLDER: evestr.CWD,
     }
     if os.path.exists(evestr.PREFERENCES_PATH):
-        with open(evestr.PREFERENCES_PATH, 'r') as sf:
-            loaded_data: dict = json.load(sf)
+        with open(evestr.PREFERENCES_PATH, 'r') as save_file:
+            loaded_data: dict = json.load(save_file)
             if (evestr.KEY_IMAGE_FOLDER in loaded_data) and os.path.exists(loaded_data[evestr.KEY_IMAGE_FOLDER]):
                 preferences[evestr.KEY_IMAGE_FOLDER] = loaded_data[evestr.KEY_IMAGE_FOLDER]
             if (evestr.KEY_SAVE_FOLDER in loaded_data) and os.path.exists(loaded_data[evestr.KEY_SAVE_FOLDER]):
@@ -1206,20 +1246,14 @@ if __name__ == "__main__":
         with open(evestr.QUESTION_FILE_PATH, 'r') as qaf:
             ask_eve_qa_dict = json.load(qaf)
 
-
-    app = QApplication(sys.argv)  # Initializing the QApp
-    # splash_pixmap = QPixmap("cats.jpg")
-    # splash = QSplashScreen(splash_pixmap)
-    # splash.show()
-
     main_screen = MainScreen()  # Initializing an instance of the main window
     width = 1062
     height = 552
-    main_screen.resize(QSize(0, 0))  # Resizing the main window
+    main_screen.resize(width,height)  # Resizing the main window
     main_screen.move(width // 4, height // 4)
     main_screen.show()  # Making the main window visible on the screen
 
-    # splash.finish(main_screen)
+    splash.finish(main_screen)
     try:
         sys.exit(app.exec())
     except Exception:
@@ -1261,34 +1295,27 @@ BATCH-WISE TIME for
 
 TESTING SUMMARY: 
 
-100 images = 16 seconds 
+100 images takes 16 seconds 
 
-200 images = 31 seconds
+200 images takes 31 seconds
 
-300 images = 47 seconds 
+300 images takes 47 seconds 
 
-400 images = 61 seconds 
+400 images takes 61 seconds 
 
-500 images = 77 seconds 
+500 images takes 77 seconds 
 
-600 images = 92 seconds
+600 images takes 92 seconds
 
-700 images = 107 seconds 
+700 images takes 107 seconds 
 
-800 images = 123 seconds
+800 images takes 123 seconds
 
-900 images = 145 seconds
+900 images takes 145 seconds
 
-1000 images = 152 seconds 
+1000 images takes 152 seconds 
 
-1500 images = 228 seconds 
+1500 images takes 228 seconds 
 
-2000 images = 304 seconds 
-
-  "quesObjective": [
-    "What's your objective?",
-    "My objective is to...",
-    "...provide a user-friendly graphical interface for the classifications of cats and dogs ^_^"
-  ],
-
+2000 images takes 304 seconds 
 """

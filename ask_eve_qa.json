@@ -1,17 +1,22 @@
 {
   "quesTraining": [
     "How were you trained?",
-    "I was trained...",
-    "...through the process of [ REMAINING ANSWER ]"
+    "I was trained on the image dataset of dogs and cats..",
+    "..with the help of Convolutional Neural Network which was 16 layers deep and was made using tools like Tensorflow and keras."
   ],
   "quesAccuracy": [
-    "What's the accuracy of your DL Model?",
-    "My accuracy is ...",
-    "...about 87%"
+    "What's the accuracy of your Deep learning Model?",
+    "The accuracy of my deep learning model is..",
+    "..for training batch, 93.2% and for Validation Batch its 94%"
   ],
   "quesOtherClassification": [
     "Can you identify anything other than just cats and dogs?",
-    "Actually...",
-    "...for the time being, I cannot do that.. But maybe in future :]"
+    "No..",
+    "..for the time being I can only identify dogs and cats, but in my future versions I will be able to identify not only dogs and cats but their breeds also."
+  ],
+  "quesTesting": [
+    "How much time does the classification take?",
+    "After some testing, I found that..",
+    "100 images takes 16 seconds \n\n200 images takes 31 seconds\n\n300 images takes 47 seconds \n\n400 images takes 61 seconds \n\n500 images takes 77 seconds \n\n600 images takes 92 seconds\n\n700 images takes 107 seconds \n\n800 images takes 123 seconds\n\n900 images takes 145 seconds\n\n1000 images takes 152 seconds \n\n1500 images takes 228 seconds \n\n2000 images takes 304 seconds"
   ]
 }

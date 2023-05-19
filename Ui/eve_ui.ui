@@ -35,7 +35,7 @@ background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1060</width>
+      <width>1062</width>
       <height>552</height>
      </rect>
     </property>
@@ -44,6 +44,9 @@ background-color: qlineargradient(spread:pad, x1:0.187, y1:0.478, x2:0.907689, y
     </property>
     <property name="pixmap">
      <pixmap>bg_img.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_inputImages">
@@ -508,7 +511,14 @@ color: rgb(70, 70, 70);</string>
         <string notr="true">QScrollArea{
 border-top-left-radius: 0px;
 border-top-right-radius: 0px;
-}</string>
+}
+</string>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="widgetResizable">
         <bool>true</bool>
@@ -577,6 +587,9 @@ color: rgb(70, 70, 70);</string>
 border-top-left-radius: 0px;
 border-top-right-radius: 0px;
 }</string>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="widgetResizable">
         <bool>true</bool>
@@ -2233,7 +2246,7 @@ border-top-right-radius:0px;
    <widget class="QFrame" name="frame_askEve">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>1062</x>
       <y>-3</y>
       <width>681</width>
       <height>558</height>
@@ -2503,7 +2516,7 @@ QPushButton:pressed{
 padding:10px;</string>
                   </property>
                   <property name="text">
-                   <string>provide a user-friendly graphical interface for the classifications of cats and dogs ^_^</string>
+                   <string>...provide a user-friendly graphical interface for the classifications of cats and dogs ^_^</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
